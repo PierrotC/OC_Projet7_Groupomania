@@ -7,7 +7,7 @@ const URI = process.env.MONGO_URI;
 
 const auth = require('./middleware/auth');
 const userRoutes = require('./routes/user');
-const sauceRoutes = require('./routes/sauces');
+const postRoutes = require('./routes/posts');
 
 const app = express();
 
@@ -38,6 +38,6 @@ app.use((req, res, next) => {
 
 app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use('/api/auth', userRoutes);
-app.use('/api/sauces', auth, sauceRoutes);
+app.use('/api/posts', auth, postRoutes);
 
 module.exports = app;
