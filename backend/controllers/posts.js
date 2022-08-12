@@ -1,8 +1,7 @@
 const Post = require('../models/post');
 const fs = require('fs');
-const { rejects } = require('assert');
 
-exports.getAllPostss = (req, res, next) => {
+exports.getAllPosts = (req, res, next) => {
     Post.find()
         .then(posts => res.status(200).json( posts ))
         .catch(error => res.status(404).json({ error }));
@@ -15,7 +14,10 @@ exports.getAllPostss = (req, res, next) => {
 // };
 
 exports.newPost = (req, res, next) => {
-    const objectPost = JSON.parse(req.body.post);
+    
+    // const objectPost = JSON.parse(req.body.post);
+    const objectPost = req.body.post;
+
 
     delete objectPost._id;
     delete objectPost._userId;
@@ -23,11 +25,9 @@ exports.newPost = (req, res, next) => {
     const post = new Post({
         ...objectPost,
         userId: req.auth.userId,
-        imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+        // imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
         likes: 0,
-        dislikes: 0,
-        usersLiked: [],
-        usersDisliked: []
+        usersLiked: []
     });
 
     post.save()
@@ -36,13 +36,13 @@ exports.newPost = (req, res, next) => {
 };
 
 exports.updatePost = (req, res, next) => {
+    // définir objet Post contenant le corps de la requête et l'éventuelle image
     const objectPost = req.file ? {
         ...JSON.parse(req.body.post),
         imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-    } : { ...req.body };
+    } : { ...req.body.post };
 
     delete objectPost._userId;
-
 
     Post.findOne({ _id: req.params.id })
         .then((post) => {
@@ -58,7 +58,9 @@ exports.updatePost = (req, res, next) => {
                     })
                 } else {
                     Post.updateOne({ _id: req.params.id }, { ...objectPost, _id: req.params.id})
-                        .then(() => res.status(200).json({ message: 'Post updated' }))
+                        .then(() => {
+                            console.log(objectPost);
+                            res.status(200).json({ message: 'Post updated' })})
                         .catch(error => res.status(400).json({ error }));
                 }
             }
@@ -72,12 +74,18 @@ exports.deletePost = (req, res, next) => {
             if(post.userId != req.auth.userId) {
                 res.status(401).json({ message: 'Unauthorized' });
             } else {
-                const imgName = post.imageUrl.split('/images/')[1];
-                fs.unlink(`images/${ imgName }`, () => {
+                if(req.file) {
+                    const imgName = post.imageUrl.split('/images/')[1];
+                    fs.unlink(`images/${ imgName }`, () => {
+                    Post.deleteOne({ _id: req.params.id })
+                        .then(() => res.status(200).json({ message: 'Post and image deleted' }))
+                        .catch(error => res.status(400).json({ error }));
+                    })
+                } else {
                     Post.deleteOne({ _id: req.params.id })
                         .then(() => res.status(200).json({ message: 'Post deleted' }))
                         .catch(error => res.status(400).json({ error }));
-                });
+                }
             }
         })
         .catch(error => res.status(404).json({ error }));
@@ -94,27 +102,21 @@ exports.likePost = (req, res, next) => {
                 if(post.usersLiked.includes(userId)) {
                     post.usersLiked.splice(post.usersLiked.indexOf(userId), 1);
                     post.likes--;
-                } else if(post.usersDisliked.includes(userId)) {
-                    post.usersDisliked.splice(post.usersDisliked.indexOf(userId), 1);
-                    post.dislikes--;
                 }
                 post.save()
                     .then(() => res.status(200).json({ message: 'Like/dislike removed' }))
                     .catch(error => res.status(400).json({ error }));
             } else {
-                if (post.usersLiked.includes(userId) || post.usersDisliked.includes(userId)) {
+                if (post.usersLiked.includes(userId)) {
                     res.status(401).json({message: 'You already did that'});
                 } else {
                     if(likeValue == 1) {
                         post.likes++;
                         post.usersLiked.push(userId);
-                    } else if(likeValue == -1) {
-                        post.dislikes++;
-                        post.usersDisliked.push(userId);
                     }
             
                 post.save()
-                    .then(() => res.status(200).json({ message: 'Like/dislike saved' }))
+                    .then(() => res.status(200).json({ message: 'Like saved' }))
                     .catch(error => res.status(400).json({ error }));
                 }
             }
