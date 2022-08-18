@@ -66,3 +66,22 @@ exports.signup = (req, res, next) => {
         .catch(error => res.status(500).json({ error }));
     }
 };
+
+exports.deleteAccount = (req, res, next) => {
+    User.findOne({ _id: req.params.id })
+        .then((user) => {
+
+            if(user._id != req.auth.userId) {
+                res.status(403).json({ message: 'You are not allowed to do that' });
+            } else {
+                User.deleteOne({ _id: req.params.id })
+                    .then(() => { res.status(200).json({ message: 'User account deleted' })})
+                    .catch(error => {res.status(500).json({ error })});
+            }
+        })
+        .catch(error => {res.status(404).json({ error })});
+};
+
+exports.modifyAccount = (req, res, next) => {
+    res.status(500).json({ message: 'Under construction' });
+}
