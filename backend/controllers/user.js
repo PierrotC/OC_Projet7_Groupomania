@@ -18,7 +18,10 @@ exports.login = (req, res, next) => {
                             res.status(200).json({
                                 userId: user._id,
                                 token: jwt.sign(
-                                    { userId: user._id},
+                                    {
+                                        userId: user._id,
+                                        isAdmin: user.isAdmin
+                                    },
                                     sign,
                                     { expiresIn: '12h' }
                                 )
@@ -32,6 +35,9 @@ exports.login = (req, res, next) => {
 };
 
 exports.signup = (req, res, next) => {
+
+    delete req.body.isAdmin;
+
     function passwordIsStrong(password) {
         const caps = /[A-Z]/g;
         const lower = /[a-z]/g;
@@ -57,7 +63,7 @@ exports.signup = (req, res, next) => {
         .then(hash => {
             const user = new User ({
                 email: req.body.email,
-                password: hash
+                password: hash,
             });
             user.save()
                 .then(() => res.status(200).json({ message: 'User created' }))
@@ -70,8 +76,7 @@ exports.signup = (req, res, next) => {
 exports.deleteAccount = (req, res, next) => {
     User.findOne({ _id: req.params.id })
         .then((user) => {
-
-            if(user._id != req.auth.userId) {
+            if(user._id != req.auth.userId && !req.auth.isAdmin) {
                 res.status(403).json({ message: 'You are not allowed to do that' });
             } else {
                 User.deleteOne({ _id: req.params.id })
@@ -83,5 +88,54 @@ exports.deleteAccount = (req, res, next) => {
 };
 
 exports.modifyAccount = (req, res, next) => {
-    res.status(500).json({ message: 'Under construction' });
+    
+    const objectUser = { ...req.body };
+
+    // delete user entry of isAdmin if not an admin
+    if(!req.auth.isAdmin) {
+        delete objectUser.isAdmin;
+    }
+
+    function passwordIsStrong(password) {
+        const caps = /[A-Z]/g;
+        const lower = /[a-z]/g;
+        const number = /[1-9]/g;
+        const special = /[ !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/g;
+
+        if(caps.test(password)) {
+            if(lower.test(password)) {
+                if(number.test(password)) {
+                    if(special.test(password)) {
+                        return true;
+                    }
+                }
+            }
+        } else {
+            return false;
+        }
+    };
+
+    User.findOne({ _id: req.params.id })
+        .then((user) => {
+            if(user._id != req.auth.userId && !req.auth.isAdmin) {
+                res.status(403).json({ message: 'You are not allowed to do that' });
+            } else {
+                if(!passwordIsStrong(objectUser.password)) {
+                    res.status(400).json({ message: 'The password is not secure enough' });
+                } else {
+                    bcrypt.hash(objectUser.password, 10)
+                        .then(hash => { 
+                            User.updateOne({ _id: req.params.id}, {
+                                email: objectUser.email,
+                                password: hash,
+                                _id: req.params.id
+                            })
+                                .then(() => res.status(200).json({ message: "User modified." }))
+                                .catch(error => res.status(500).json({ error }));
+                        })
+                        .catch();
+                }
+            }
+        })
+        .catch(error => {res.status(404).json({ error })});
 }

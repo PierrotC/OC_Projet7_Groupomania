@@ -5,8 +5,8 @@ const postSchema = mongoose.Schema({
     userId: { type: String, required: true },
     content: { type: String, required: true },
     imageUrl: { type: String },
-    likes: { type: Number, required: true },
-    usersLiked: { type: [String], required: true }
+    likes: { type: Number, required: true, default: 0 },
+    usersLiked: { type: [String], required: true, default: [] }
 });
 
 postSchema.plugin(mongooseErrors);

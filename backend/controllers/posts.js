@@ -46,7 +46,7 @@ exports.updatePost = (req, res, next) => {
 
     Post.findOne({ _id: req.params.id })
         .then((post) => {
-            if(post.userId != req.auth.userId) {
+            if(post.userId != req.auth.userId && !req.auth.isAdmin) {
                 res.status(401).json({ message: 'Unauthorized' });
             } else {
                 if(req.file) {
@@ -58,9 +58,7 @@ exports.updatePost = (req, res, next) => {
                     })
                 } else {
                     Post.updateOne({ _id: req.params.id }, { ...objectPost, _id: req.params.id})
-                        .then(() => {
-                            console.log(objectPost);
-                            res.status(200).json({ message: 'Post updated' })})
+                        .then(() => {res.status(200).json({ message: 'Post updated' })})
                         .catch(error => res.status(400).json({ error }));
                 }
             }
@@ -71,7 +69,7 @@ exports.updatePost = (req, res, next) => {
 exports.deletePost = (req, res, next) => {
     Post.findOne({ _id: req.params.id })
         .then((post) => {
-            if(post.userId != req.auth.userId) {
+            if(post.userId != req.auth.userId && !req.auth.isAdmin) {
                 res.status(401).json({ message: 'Unauthorized' });
             } else {
                 if(req.file) {

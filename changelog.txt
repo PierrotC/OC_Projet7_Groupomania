@@ -1,0 +1,20 @@
+### Before
+
+Deployed API to :
+- get all posts
+- create a post
+- delete and modify your own posts
+- like a post
+- create an account
+- login to your account
+- secured passwords
+- secured website : you need to be authenticated to access the posts
+
+### API V1
+
+- added isAdmin property
+- protected signup route from changing isAdmin
+- Created delete route and allowed admin to delete anyone
+- Created put route and allowed admin to modify anyone (this route checks if the password is strong enough)
+- added isAdmin property in jsonwebtoken and authentication process
+- authorized admin on delete and update routes for posts
