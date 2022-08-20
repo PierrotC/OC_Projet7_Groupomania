@@ -12,3 +12,17 @@
 
 ### V0.0.3
 - removed .DS_store in every folder
+
+### V0.0.4
+- added authentication form (not functionnal)
+- changed some style in header
+
+## Objectives :
+- V0.1.0 : login/signup page functionnal
+- V0.2.0 : homepage with all posts functionnal
+- VO.3.0 : post creation page functionnal
+- VO.4.0 : modify and delete posts functionnal
+- V0.5.0 : modify and delete users functionnal
+- VO.6.0 : like system functionnal
+- V0.7.0 : User session stored
+- V1.0.0 : Everything working
