@@ -1,1 +1,11 @@
-###
+### V0.0.1
+- created first scss files : main, base/global, composants/components, utils/variables
+- created the two "homepages" index and pages/signup
+- sketched the header, common to all pages
+- linked the homepages together
+- installed and plugged vue app
+- installed sass
+- cropped the logo
+
+### V0.0.2
+- added this changelog
