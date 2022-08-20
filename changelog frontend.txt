@@ -9,3 +9,6 @@
 
 ### V0.0.2
 - added this changelog
+
+### V0.0.3
+- removed .DS_store in every folder
