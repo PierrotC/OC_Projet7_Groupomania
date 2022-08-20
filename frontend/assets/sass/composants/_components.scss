@@ -1,0 +1,33 @@
+header {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    background-color: $color-secondary;
+    padding: 50px;
+    .logo {
+        height: 300px;
+    }
+    .header-buttons {
+        display: grid;
+        &__account {
+            justify-self: flex-end;
+        }
+    }
+    // * {
+    //     margin: 50px;
+    // }
+}
+
+button {
+    background-color: $color-primary;
+    padding: 10px;
+    margin: 10px;
+    color: white;
+    border: none;
+    box-shadow: 2px 2px 5px black;
+    width: 150px;
+    font-size: 1em;
+    font-weight: 700;
+    border-radius: 10px;
+    cursor: pointer;
+}

@@ -4,7 +4,7 @@
         <meta charset="UTF-8" />
         <title>Groupomania</title>
         <!-- Styles -->
-        <link rel="stylesheet" href="./assets/style.css" />
+        <link rel="stylesheet" href="../assets/style.css" />
         <!-- Font -->
         <link rel="stylesheet" href="https://use.typekit.net/zbe5vpi.css">
         <!-- Vue.js -->
@@ -16,18 +16,18 @@
         <div id="app">
             <header>
                 <div class="logo">
-                    <img src="./assets/logo/rsz_icon-left-font.png" alt="Logo de l'entreprise Groupomania" />
+                    <img src="../assets/logo/rsz_icon-left-font.png" alt="Logo de l'entreprise Groupomania" />
                 </div>
                 <h1>Le réseau social de votre entreprise</h1>
                 <div class="header-buttons">
-                    <button class="header-buttons__account" id="signup-page-btn" @click="toSignup">S'inscrire</button>
+                    <button class="header-buttons__account" id="login-page-btn" @click="toHome">Se connecter</button>
                 </div>
             </header>
-            <h2>Bienvenue ! Connectez-vous !</h2>
+            <h2>Bienvenue ! Inscrivez-vous !</h2>
         </div>
 
         <!-- Import main script -->
-        <script src="./assets/scripts/main.js"></script>
+        <script src="../assets/scripts/main.js"></script>
         <!-- Mount app -->
         <script>
             const mountedApp = app.mount('#app')
