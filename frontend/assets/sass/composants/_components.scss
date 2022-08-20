@@ -3,9 +3,11 @@ header {
     flex-direction: column;
     text-align: center;
     background-color: $color-secondary;
-    padding: 50px;
-    .logo {
-        height: 300px;
+    padding: 20px 50px;
+    .logo img{
+        width: 80%;
+        max-width: 1000px;
+        min-width: 300px;
     }
     .header-buttons {
         display: grid;
@@ -18,7 +20,7 @@ header {
     // }
 }
 
-button {
+.button {
     background-color: $color-primary;
     padding: 10px;
     margin: 10px;
@@ -30,4 +32,8 @@ button {
     font-weight: 700;
     border-radius: 10px;
     cursor: pointer;
+}
+
+form {
+    font-size: 1em;
 }

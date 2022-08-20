@@ -20,14 +20,21 @@
                 </div>
                 <h1>Le réseau social de votre entreprise</h1>
                 <div class="header-buttons">
-                    <button class="header-buttons__account" id="signup-page-btn" @click="toSignup">S'inscrire</button>
+                    <button class="header-buttons__account button" id="signup-page-btn" @click="toSignup">S'inscrire</button>
                 </div>
             </header>
-            <h2>Bienvenue ! Connectez-vous !</h2>
+            <div class="flex-column flex-center">
+                <h2>Bienvenue ! Connectez-vous !</h2>
+                <auth-form></auth-form>
+            </div>
         </div>
 
-        <!-- Import main script -->
+        <!-- Import app -->
         <script src="./assets/scripts/main.js"></script>
+
+        <!-- Import components -->
+        <script src="./assets/scripts/components/formAuth.js"></script>
+
         <!-- Mount app -->
         <script>
             const mountedApp = app.mount('#app')

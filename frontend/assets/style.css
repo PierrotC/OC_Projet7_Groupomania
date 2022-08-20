@@ -1,3 +1,22 @@
+.flex-center {
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.self-center {
+  align-self: center;
+}
+
 body {
   font-family: lato, sans-serif;
   margin: 0;
@@ -8,10 +27,12 @@ header {
   flex-direction: column;
   text-align: center;
   background-color: #FFD7D7;
-  padding: 50px;
+  padding: 20px 50px;
 }
-header .logo {
-  height: 300px;
+header .logo img {
+  width: 80%;
+  max-width: 1000px;
+  min-width: 300px;
 }
 header .header-buttons {
   display: grid;
@@ -20,7 +41,7 @@ header .header-buttons__account {
   justify-self: flex-end;
 }
 
-button {
+.button {
   background-color: #FD2D01;
   padding: 10px;
   margin: 10px;
@@ -32,6 +53,10 @@ button {
   font-weight: 700;
   border-radius: 10px;
   cursor: pointer;
+}
+
+form {
+  font-size: 1em;
 }
 
 /*# sourceMappingURL=style.css.map */
