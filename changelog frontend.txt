@@ -25,6 +25,9 @@
 - Improvements on login
 - First version of get request for posts
 
+### V0.0.7
+- Trying somethin to manage post routes from Traversy media video, in progress
+
 ## Objectives :
 - V0.1.0 : login/signup page functionnal
 - V0.2.0 : homepage with all posts functionnal
