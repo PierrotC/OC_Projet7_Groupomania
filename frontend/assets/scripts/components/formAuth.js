@@ -27,10 +27,8 @@ app.component('auth-form', {
 
             const pageURL = window.location.href.split('/');
             const loc = pageURL[pageURL.length - 1];
-            console.log(loc);
             
             if (loc === 'index.html') {
-                console.log('loging in!');
                 fetch('http://localhost:3000/api/auth/login', {
                     method: "POST",
                     headers: { 
@@ -39,14 +37,20 @@ app.component('auth-form', {
                     },
                     body: JSON.stringify(userAuth)
                 })
-                .then((res) => { if(res.ok) { return res.json() } })
+                .then((res) => {
+                    if(res.ok) {
+                        return res.json()
+                    } else {
+                        return Promise.reject(error);
+                    }})
                 .then(() => {
                     // window.location.href = './pages/home.html'
                     console.log('ok!');
                 })
                 .catch((error) => {
                     console.error('Erreur' + error);
-                    return;
+                    alert('Identifiants incorrects !')
+                    return error;
                 });
             } else if (loc === 'signup.html') {
                 console.log('Signing up!');
