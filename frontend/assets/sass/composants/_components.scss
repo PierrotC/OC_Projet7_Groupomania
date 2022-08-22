@@ -11,13 +11,11 @@ header {
     }
     .header-buttons {
         display: grid;
+        grid-template: auto / auto auto;
         &__account {
             justify-self: flex-end;
         }
     }
-    // * {
-    //     margin: 50px;
-    // }
 }
 
 .button {
@@ -32,8 +30,34 @@ header {
     font-weight: 700;
     border-radius: 10px;
     cursor: pointer;
+    transition: 200ms;
+    &:hover {
+        background-color: lighten($color-primary, 20);
+    }
 }
 
 form {
     font-size: 1em;
+}
+
+.posts {
+    width: 90%;
+}
+
+.post {
+    background-color: $color-secondary;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 25px;
+    border-radius: 25px;
+    box-shadow: 2px 2px 5px black;
+    .image {
+        max-height: 500px;
+        text-align: center;
+        margin: 15px 0;
+        img {
+            max-height: inherit;
+            box-shadow: 2px 2px 5px black;
+        }
+    }
 }

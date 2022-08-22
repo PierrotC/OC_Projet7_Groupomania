@@ -17,6 +17,10 @@
 - added authentication form (not functionnal)
 - changed some style in header
 
+### V0.0.5
+- added API logic to signup and login, fixes needed
+- Sketched home page with mock-up posts and new post page
+
 ## Objectives :
 - V0.1.0 : login/signup page functionnal
 - V0.2.0 : homepage with all posts functionnal

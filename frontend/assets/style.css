@@ -19,6 +19,9 @@
 
 body {
   font-family: lato, sans-serif;
+}
+
+body, p {
   margin: 0;
 }
 
@@ -36,6 +39,7 @@ header .logo img {
 }
 header .header-buttons {
   display: grid;
+  grid-template: auto/auto auto;
 }
 header .header-buttons__account {
   justify-self: flex-end;
@@ -53,10 +57,36 @@ header .header-buttons__account {
   font-weight: 700;
   border-radius: 10px;
   cursor: pointer;
+  transition: 200ms;
+}
+.button:hover {
+  background-color: #fe8066;
 }
 
 form {
   font-size: 1em;
+}
+
+.posts {
+  width: 90%;
+}
+
+.post {
+  background-color: #FFD7D7;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 25px;
+  border-radius: 25px;
+  box-shadow: 2px 2px 5px black;
+}
+.post .image {
+  max-height: 500px;
+  text-align: center;
+  margin: 15px 0;
+}
+.post .image img {
+  max-height: inherit;
+  box-shadow: 2px 2px 5px black;
 }
 
 /*# sourceMappingURL=style.css.map */

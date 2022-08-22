@@ -24,6 +24,51 @@ app.component('auth-form', {
                 email: this.email,
                 password: this.password
             }
+
+            const pageURL = window.location.href.split('/');
+            const loc = pageURL[pageURL.length - 1];
+            console.log(loc);
+            
+            if (loc === 'index.html') {
+                console.log('loging in!');
+                fetch('http://localhost:3000/api/auth/login', {
+                    method: "POST",
+                    headers: { 
+                    'Accept': 'application/json', 
+                    'Content-Type': 'application/json' 
+                    },
+                    body: JSON.stringify(userAuth)
+                })
+                .then((res) => { if(res.ok) { return res.json() } })
+                .then(() => {
+                    // window.location.href = './pages/home.html'
+                    console.log('ok!');
+                })
+                .catch((error) => {
+                    console.error('Erreur' + error);
+                    return;
+                });
+            } else if (loc === 'signup.html') {
+                console.log('Signing up!');
+                fetch('http://localhost:3000/api/auth/signup', {
+                    method: "POST",
+                    headers: { 
+                    'Accept': 'application/json', 
+                    'Content-Type': 'application/json' 
+                    },
+                    body: JSON.stringify(userAuth)
+                })
+                .then(res => { if(res.ok) { return res.json() } })
+                .then(() => {
+                    // window.location.href = './pages/home.html'
+                    console.log('ok!');
+                })
+                .catch((error) => { console.error('Erreur' + error) });
+            }
+            
+            this.email = ''
+            this.password = ''
+
         }
     }
 }) 
