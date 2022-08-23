@@ -34,6 +34,10 @@ header {
     &:hover {
         background-color: lighten($color-primary, 20);
     }
+    &.disabled {
+        background-color: $color-tertiary;
+        cursor: not-allowed;
+    }
 }
 
 form {
@@ -60,4 +64,21 @@ form {
             box-shadow: 2px 2px 5px black;
         }
     }
+}
+
+
+.likes {
+    flex-grow: 1;
+    text-align: end;
+    font-size: 1.5em;
+    justify-content: flex-end;
+    .youLike {
+        font-size: 0.7em;
+    }
+}
+
+.dev {
+    background-color: red;
+    width: 100%;
+    color: white;
 }

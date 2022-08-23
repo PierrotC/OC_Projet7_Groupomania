@@ -1,9 +1,11 @@
 body {
     font-family: lato, sans-serif;
+    color: $color-tertiary;
+    margin: 0;
 }
 
-body, p {
-    margin: 0;
+p {
+    margin: 0 10px;
 }
 
 // Lato Italic

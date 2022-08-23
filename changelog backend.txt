@@ -21,3 +21,5 @@ Deployed API to :
 
 ### Key github
 - Test to check the SSH connection to github
+
+### Pulled (and merged) backend to main

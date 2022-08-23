@@ -17,12 +17,18 @@
   align-self: center;
 }
 
-body {
-  font-family: lato, sans-serif;
+.grid {
+  display: grid;
 }
 
-body, p {
+body {
+  font-family: lato, sans-serif;
+  color: #4E5166;
   margin: 0;
+}
+
+p {
+  margin: 0 10px;
 }
 
 header {
@@ -62,6 +68,10 @@ header .header-buttons__account {
 .button:hover {
   background-color: #fe8066;
 }
+.button.disabled {
+  background-color: #4E5166;
+  cursor: not-allowed;
+}
 
 form {
   font-size: 1em;
@@ -87,6 +97,22 @@ form {
 .post .image img {
   max-height: inherit;
   box-shadow: 2px 2px 5px black;
+}
+
+.likes {
+  flex-grow: 1;
+  text-align: end;
+  font-size: 1.5em;
+  justify-content: flex-end;
+}
+.likes .youLike {
+  font-size: 0.7em;
+}
+
+.dev {
+  background-color: red;
+  width: 100%;
+  color: white;
 }
 
 /*# sourceMappingURL=style.css.map */

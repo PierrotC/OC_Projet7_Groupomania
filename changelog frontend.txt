@@ -28,6 +28,17 @@
 ### V0.0.7
 - Trying somethin to manage post routes from Traversy media video, in progress
 
+### Merged backend with frontend to test with API
+
+### V0.2.0
+- Note : login/signup is still not perfect (signup not tried yet)
+- Posts from API now display on homepage
+- Modify and delete buttons are hidden if you're not the owner (and even if you're admin for now)
+- Like button changes, depending on if you already liked the post and would like to remove your like
+- Added a "dev bar" at the bottom of each post to display some development info
+- "Like" route is in progress
+- Imported FontAwesome
+
 ## Objectives :
 - V0.1.0 : login/signup page functionnal
 - V0.2.0 : homepage with all posts functionnal

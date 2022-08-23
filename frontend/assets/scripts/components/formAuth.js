@@ -43,14 +43,17 @@ app.component('auth-form', {
                     } else {
                         return Promise.reject(error);
                     }})
-                .then(() => {
-                    // window.location.href = './pages/home.html'
+                .then((userData) => {
+                    window.location.href = './pages/home.html'
                     console.log('ok!');
+                    const user = {
+                        ...userData
+                    }
+                    localStorage.setItem("userAuth", JSON.stringify(user));
+                    console.log(user);
                 })
                 .catch((error) => {
-                    console.error('Erreur' + error);
-                    alert('Identifiants incorrects !')
-                    return error;
+                    alert('Identifiants incorrects !');
                 });
             } else if (loc === 'signup.html') {
                 console.log('Signing up!');
@@ -62,10 +65,18 @@ app.component('auth-form', {
                     },
                     body: JSON.stringify(userAuth)
                 })
-                .then(res => { if(res.ok) { return res.json() } })
+                .then(res => {
+                    if(res.ok) { return res.json() }
+                    else {
+                        return Promise.reject(error);
+                    }
+                })
                 .then(() => {
                     // window.location.href = './pages/home.html'
                     console.log('ok!');
+                    const user = {
+                        ...userData
+                    };
                 })
                 .catch((error) => { console.error('Erreur' + error) });
             }

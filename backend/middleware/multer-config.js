@@ -16,8 +16,6 @@ const storage = multer.diskStorage({
 
         
         const ext = MIME_TYPES[file.mimetype];
-
-        // cb(null, name.join('_') + '_' + Date.now() + '.' + ext);
         
         if(!ext) {
             cb(null, false);
