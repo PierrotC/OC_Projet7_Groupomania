@@ -6,8 +6,11 @@ module.exports = (req, res, next) => {
         const token = req.headers.authorization.split(' ')[1];
         verifiedTkn = jwt.verify(token, sign);
         const userId = verifiedTkn.userId;
+        const isAdmin = verifiedTkn.isAdmin;
+
         req.auth = {
-            userId: userId
+            userId: userId,
+            isAdmin: isAdmin
         };
         next();
     } catch(error) {
