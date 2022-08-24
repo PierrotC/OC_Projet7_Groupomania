@@ -39,6 +39,13 @@
 - "Like" route is in progress
 - Imported FontAwesome
 
+### V0.2.1
+- Created a header vue component to configure later
+- Created an admin box on each post to allow an admin to access the account page of the post's owner
+- Like system functionnal
+- Created the account page and vue component
+- Added favicon
+
 ## Objectives :
 - V0.1.0 : login/signup page functionnal
 - V0.2.0 : homepage with all posts functionnal

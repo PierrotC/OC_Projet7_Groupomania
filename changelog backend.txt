@@ -23,3 +23,6 @@ Deployed API to :
 - Test to check the SSH connection to github
 
 ### Pulled (and merged) backend to main
+
+### V1.0.1
+- Sent the isAdmin property in the response when logging in

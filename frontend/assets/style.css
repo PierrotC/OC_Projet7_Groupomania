@@ -109,6 +109,24 @@ form {
   font-size: 0.7em;
 }
 
+a:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.admin {
+  border: 1px #4E5166 solid;
+  flex-wrap: wrap;
+  padding: 5px;
+}
+.admin h3 {
+  flex-basis: 100%;
+  margin: 0;
+}
+.admin p {
+  margin: 0 2px 0 0;
+}
+
 .dev {
   background-color: red;
   width: 100%;

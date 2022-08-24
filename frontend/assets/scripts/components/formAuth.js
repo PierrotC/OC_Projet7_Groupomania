@@ -4,10 +4,10 @@ app.component('auth-form', {
     `
     <form class="auth-form flex-column" @submit.prevent="onSubmit">
         <label for="email">E-mail</label>
-        <input id="email" v-model="email" />
+        <input type="email" id="email" v-model="email" />
 
         <label for="password">Mot de passe</label>
-        <input id="password" v-model="password" />
+        <input type="password" id="password" v-model="password" />
 
         <input type="submit" class="button self-center" value="Valider" />
     </form>
@@ -71,12 +71,13 @@ app.component('auth-form', {
                         return Promise.reject(error);
                     }
                 })
-                .then(() => {
-                    // window.location.href = './pages/home.html'
+                .then((userData) => {
+                    window.location.href = './pages/home.html'
                     console.log('ok!');
                     const user = {
                         ...userData
                     };
+                    localStorage.setItem("userAuth", JSON.stringify(user));
                 })
                 .catch((error) => { console.error('Erreur' + error) });
             }

@@ -17,8 +17,6 @@ const app = Vue.createApp({
         },
         toHome() {
             window.location.href = './home.html'
-            localStorage.clear();
-            console.log(localStorage);
         },
         getPosts() {
             

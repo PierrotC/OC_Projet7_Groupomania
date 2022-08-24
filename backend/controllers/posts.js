@@ -101,7 +101,7 @@ exports.likePost = (req, res, next) => {
 
     Post.findOne({ _id: req.params.id })
         .then((post) => {
-            if(likeValue == 0) {
+            if(likeValue == -1) {
                 if(post.usersLiked.includes(userId)) {
                     post.usersLiked.splice(post.usersLiked.indexOf(userId), 1);
                     post.likes--;
