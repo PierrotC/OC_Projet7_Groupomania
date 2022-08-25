@@ -1,8 +1,8 @@
 <template>
 
-    <div class="login">
+    <div class="signup">
 
-        <h1>Connectez-vous</h1>
+        <h1>Créez un compte</h1>
 
     </div>
     
