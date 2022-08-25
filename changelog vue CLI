@@ -1,2 +1,5 @@
 ### V0.0.1
 - Initialized everything, following vueschool course
+
+### V0.0.2
+- Setup router in App.vue

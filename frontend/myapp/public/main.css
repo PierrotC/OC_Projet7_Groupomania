@@ -31,23 +31,23 @@ p {
   margin: 0 10px;
 }
 
-header {
+.header {
   display: flex;
   flex-direction: column;
   text-align: center;
   background-color: #FFD7D7;
   padding: 20px 50px;
 }
-header .logo img {
+.header .logo img {
   width: 80%;
   max-width: 1000px;
   min-width: 300px;
 }
-header .header-buttons {
+.header .header-buttons {
   display: grid;
   grid-template: auto/auto auto;
 }
-header .header-buttons__account {
+.header .header-buttons__account {
   justify-self: flex-end;
 }
 
@@ -133,4 +133,8 @@ a:hover {
   color: white;
 }
 
-/*# sourceMappingURL=style.css.map */
+.auth-form {
+  width: 90%;
+}
+
+/*# sourceMappingURL=main.css.map */
