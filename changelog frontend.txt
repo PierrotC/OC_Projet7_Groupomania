@@ -46,6 +46,10 @@
 - Created the account page and vue component
 - Added favicon
 
+### V0.2.2
+- Added delete post route in home
+- Working on Vue CLI, branching
+
 ## Objectives :
 - V0.1.0 : login/signup page functionnal
 - V0.2.0 : homepage with all posts functionnal

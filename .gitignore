@@ -4,3 +4,5 @@
 /backend/images
 /backend/.env
 .DS_Store
+
+myapp

@@ -24,7 +24,10 @@
                 <h1>Le réseau social de votre entreprise</h1>
                 <div class="header-buttons">
                     <button class="header-buttons__post button" id="new-post-btn" @click="toCreate">Nouvelle publication</button>
-                    <button class="header-buttons__account button" id="signup-page-btn" @click="toIndex">Se déconnecter</button>
+                    <div class="header-buttons__account">
+                        <button class="button" @click="toAccount(userAuth.userId)">Mon Compte</button>
+                        <button class="header-buttons__account button" id="signup-page-btn" @click="toIndex">Se déconnecter</button>
+                    </div>
                 </div>
             </header>
             <div class="flex-column flex-center">

@@ -13,13 +13,13 @@ const app = Vue.createApp({
             window.location.href = '../index.html'
         },
         toCreate() {
-            window.location.href = './newpost.html'
+            window.location.href = './editpost.html'
+        },
+        toAccount(id) {
+            window.location.href = './account.html?id='.concat(id);
         },
         toHome() {
             window.location.href = './home.html'
-        },
-        getPosts() {
-            
         }
     }
 })

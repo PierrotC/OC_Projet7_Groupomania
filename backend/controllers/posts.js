@@ -23,6 +23,7 @@ exports.newPost = (req, res, next) => {
     // } : { ...JSON.parse(req.body.post) };
     // console.log(objectPost);
     const objectPost = req.body.post;
+    // console.log(objectPost.content);
 
     delete objectPost._id;
     delete objectPost._userId;

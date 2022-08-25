@@ -12,18 +12,30 @@ app.component('post', {
         <button
             v-if="userLikes.includes(post._id)"
             class="button"
-            @click="likePost(post._id, -1)"
-        >
+            @click="likePost(post._id, -1)">
             Je n'aime plus
         </button>
+
         <button
             v-else
             @click="likePost(post._id, 1)"
-            class="button"
-        >
-            J'aime</button>
-        <button class="button" v-show="this.userAuth.userId == post.userId || this.userAuth.isAdmin">Modifier</button>
-        <button class="button" v-show="this.userAuth.userId == post.userId || this.userAuth.isAdmin">Supprimer</button>
+            class="button">
+            J'aime
+        </button>
+
+        <button
+        class="button"
+        v-show="this.userAuth.userId == post.userId || this.userAuth.isAdmin"
+        @click="toModify">
+        Modifier
+        </button>
+
+        <button
+        class="button"
+        v-show="this.userAuth.userId == post.userId || this.userAuth.isAdmin"
+        @click="onDelete(post._id)">
+        Supprimer
+        </button>
         <div @likePost="" class="likes flex-row flex-center">
             <p class="youLike" v-if="userLikes.includes(post._id)">Vous aimez !</p>
             <p> {{ post.likes }} </p>
@@ -31,7 +43,7 @@ app.component('post', {
         </div>
         
     </div>
-    <div class="admin flex-row">
+    <div class="admin flex-row" v-show="userAuth.isAdmin">
         <h3>Admin</h3>
         <p>Posté par : </p>
         <a @click="toAccount(post.userId)">{{ post.userId }}</a>
@@ -43,8 +55,11 @@ app.component('post', {
 </article>
     `,
     methods: {
-        toAccount(id) {
-            window.location.href = './account.html?id='.concat(id);
+        // toAccount(id) {
+        //     window.location.href = './account.html?id='.concat(id);
+        // },
+        toModify(id) {
+            window.location.href = './editpost.html'
         },
         likePost(id, likeValue) {
             const url = `http://localhost:3000/api/posts/${id}/like`;
@@ -64,7 +79,6 @@ app.component('post', {
             })
             .then((res) => {
                 if(res.ok) {
-                    console.log('Like ok!');
                     if (likeValue === -1) {
                         this.userLikes.splice(this.userLikes.indexOf(id), 1);
                     } else if(likeValue === 1) {
@@ -80,6 +94,27 @@ app.component('post', {
                 }
             })
             .catch((error) => { console.error('Error ! ' + error) });
+        },
+        onDelete(id) {
+            const url = `http://localhost:3000/api/posts/${id}/`;
+            fetch(url, {
+                method: 'DELETE',
+                headers: { 
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'authorization': `Bearer ${this.userAuth.token}`
+                    }
+            })
+            .then(res => {if(res.ok) {
+                // update DOM
+                let index = this.posts.findIndex(elt => elt._id === id)
+                this.posts.splice(index, 1);
+                return res.json();
+            } else {
+                return Promise.reject(error);
+            }
+            })
+            .catch((error) => { console.error('Error ' + error) });
         }
     },
     data() {
