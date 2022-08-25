@@ -1,5 +1,6 @@
 <template>
 
+
     <!-- <form class="auth-form flex-column" @submit.prevent="onSubmit">
         <label for="email">E-mail</label>
         <input type="email" id="email" v-model="email" />

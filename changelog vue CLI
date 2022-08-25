@@ -3,3 +3,7 @@
 
 ### V0.0.2
 - Setup router in App.vue
+
+### V0.0.3
+- Installed and initialized sass
+- First migrations from cdn templates

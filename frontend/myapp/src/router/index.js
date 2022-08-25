@@ -4,7 +4,6 @@ import Login from '../views/Login.vue'
 import Signup from '../views/Signup.vue'
 import Account from '../views/Account.vue'
 
-
 const routes = [
   {
     path: '/',

@@ -4,9 +4,11 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build"
+    "build": "vue-cli-service build",
+    "sass": "sass --watch ./sass/main.scss:./public/main.css"
   },
   "dependencies": {
+    "sass": "^1.54.5",
     "vue": "^3.2.13",
     "vue-router": "^4.0.3"
   },
