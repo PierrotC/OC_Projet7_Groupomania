@@ -1,0 +1,36 @@
+[
+	{
+		"_id": "62f650c53d293cd197483dea",
+		"userId": "62f6508f3d293cd197483de4",
+		"content": "Hello world ! C'est le premier post (modifié) du réseau Groupomania !",
+		"likes": 1,
+		"usersLiked": [
+			"62fe4d06170575b06e088753"
+		],
+		"__v": 2
+	},
+	{
+		"_id": "6304d22fdb6304b2699e6dfb",
+		"userId": "62fe4d06170575b06e088753",
+		"content": "Deuxième post",
+		"likes": 0,
+		"usersLiked": [],
+		"__v": 0
+	},
+	{
+		"_id": "6304d267db6304b2699e6dff",
+		"userId": "62fe4d06170575b06e088753",
+		"content": "Troisième post",
+		"likes": 0,
+		"usersLiked": [],
+		"__v": 0
+	},
+	{
+		"_id": "6304d7cbdb6304b2699e6e08",
+		"userId": "62fe4d06170575b06e088753",
+		"content": "Quatrième post",
+		"likes": 0,
+		"usersLiked": [],
+		"__v": 0
+	}
+]

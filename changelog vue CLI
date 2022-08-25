@@ -7,3 +7,9 @@
 ### V0.0.3
 - Installed and initialized sass
 - First migrations from cdn templates
+
+### V0.0.4
+- Migrated nav bar into its own component
+- Created and imported NewPost.vue in Home
+- Integrated template for Login, Signup and Home
+- Added sourceData.json with mocked posts data

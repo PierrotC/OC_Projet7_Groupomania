@@ -31,23 +31,43 @@ p {
   margin: 0 10px;
 }
 
-.header {
+#component_main {
+  max-width: 960px;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+a {
+  text-decoration: none;
+}
+a:hover {
+  cursor: pointer;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+}
+
+header {
   display: flex;
   flex-direction: column;
   text-align: center;
   background-color: #FFD7D7;
   padding: 20px 50px;
 }
-.header .logo img {
+header .logo img {
   width: 80%;
   max-width: 1000px;
   min-width: 300px;
 }
-.header .header-buttons {
-  display: grid;
-  grid-template: auto/auto auto;
+header .header-buttons {
+  display: flex;
+  justify-content: space-between;
 }
-.header .header-buttons__account {
+header .header-buttons__account {
   justify-self: flex-end;
 }
 
@@ -74,7 +94,11 @@ p {
 }
 
 form {
-  font-size: 1em;
+  font-size: 1.2em;
+  max-width: 200px;
+}
+form * {
+  margin-bottom: 5px;
 }
 
 .posts {
@@ -109,11 +133,6 @@ form {
   font-size: 0.7em;
 }
 
-a:hover {
-  text-decoration: underline;
-  cursor: pointer;
-}
-
 .admin {
   border: 1px #4E5166 solid;
   flex-wrap: wrap;
@@ -133,8 +152,11 @@ a:hover {
   color: white;
 }
 
-.auth-form {
-  width: 90%;
+.newPost {
+  width: 100%;
+}
+.newPost textarea {
+  resize: none;
 }
 
 /*# sourceMappingURL=main.css.map */

@@ -8,6 +8,26 @@ p {
     margin: 0 10px;
 }
 
+#component_main {
+    max-width: 960px;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+a {
+    text-decoration: none;
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+}
+
 // Lato Italic
 // font-family: lato, sans-serif;
 // font-weight: 400;

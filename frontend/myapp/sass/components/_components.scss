@@ -10,8 +10,8 @@ header {
         min-width: 300px;
     }
     .header-buttons {
-        display: grid;
-        grid-template: auto / auto auto;
+        display: flex;
+        justify-content: space-between;
         &__account {
             justify-self: flex-end;
         }
@@ -41,7 +41,11 @@ header {
 }
 
 form {
-    font-size: 1em;
+    font-size: 1.2em;
+    max-width: 200px;
+    * {
+        margin-bottom: 5px;
+    }
 }
 
 .posts {
@@ -76,13 +80,6 @@ form {
     }
 }
 
-a {
-    &:hover {
-        text-decoration: underline;
-        cursor: pointer;
-    }
-}
-
 .admin {
     border: 1px $color-tertiary solid;
     flex-wrap: wrap;
@@ -100,4 +97,11 @@ a {
     background-color: red;
     width: 100%;
     color: white;
+}
+
+.newPost {
+    width: 100%;
+    textarea {
+        resize: none;
+    }
 }
