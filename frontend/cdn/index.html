@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Groupomania</title>
+        <link rel="icon" type="image/x-icon" href="./assets/logo/favicon.ico">
+        <!-- Styles -->
+        <link rel="stylesheet" href="./assets/style.css" />
+        <!-- Font -->
+        <link rel="stylesheet" href="https://use.typekit.net/zbe5vpi.css">
+        <!-- Vue.js -->
+        <script src="https://unpkg.com/vue@3"></script>
+        <!-- <script src="https://unpkg.com/vue@3.0.11/dist/vue.global.js"></script> -->
+    </head>
+
+    <body>
+        <div id="app">
+            <header>
+                <div class="logo">
+                    <img src="./assets/logo/rsz_icon-left-font.png" alt="Logo de l'entreprise Groupomania" />
+                </div>
+                <h1>Le réseau social de votre entreprise</h1>
+                <div class="header-buttons">
+                    <button class="header-buttons__account button" id="signup-page-btn" @click="toSignup">S'inscrire</button>
+                </div>
+            </header>
+            <div class="flex-column flex-center">
+                <h2>Bienvenue ! Connectez-vous !</h2>
+                <auth-form></auth-form>
+            </div>
+        </div>
+
+        <!-- Import app -->
+        <script src="./assets/scripts/main.js"></script>
+
+        <!-- Import components -->
+        <script src="./assets/scripts/components/formAuth.js"></script>
+
+        <!-- Mount app -->
+        <script>
+            const mountedApp = app.mount('#app')
+        </script>
+    </body>
+
+</html>

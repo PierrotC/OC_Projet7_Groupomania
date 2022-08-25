@@ -1,0 +1,108 @@
+.header {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    background-color: $color-secondary;
+    padding: 20px 50px;
+    .logo img{
+        width: 80%;
+        max-width: 1000px;
+        min-width: 300px;
+    }
+    .header-buttons {
+        display: grid;
+        grid-template: auto / auto auto;
+        &__account {
+            justify-self: flex-end;
+        }
+    }
+}
+
+.button {
+    background-color: $color-primary;
+    padding: 10px;
+    margin: 10px;
+    color: white;
+    border: none;
+    box-shadow: 2px 2px 5px black;
+    width: 150px;
+    font-size: 1em;
+    font-weight: 700;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 200ms;
+    &:hover {
+        background-color: lighten($color-primary, 20);
+    }
+    &.disabled {
+        background-color: $color-tertiary;
+        cursor: not-allowed;
+    }
+}
+
+form {
+    font-size: 1em;
+}
+
+.posts {
+    width: 90%;
+}
+
+.post {
+    background-color: $color-secondary;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 25px;
+    border-radius: 25px;
+    box-shadow: 2px 2px 5px black;
+    .image {
+        max-height: 500px;
+        text-align: center;
+        margin: 15px 0;
+        img {
+            max-height: inherit;
+            box-shadow: 2px 2px 5px black;
+        }
+    }
+}
+
+
+.likes {
+    flex-grow: 1;
+    text-align: end;
+    font-size: 1.5em;
+    justify-content: flex-end;
+    .youLike {
+        font-size: 0.7em;
+    }
+}
+
+a {
+    &:hover {
+        text-decoration: underline;
+        cursor: pointer;
+    }
+}
+
+.admin {
+    border: 1px $color-tertiary solid;
+    flex-wrap: wrap;
+    padding: 5px;
+    h3 {
+        flex-basis: 100%;
+        margin: 0;
+    }
+    p {
+        margin: 0 2px 0 0;
+    }
+}
+
+.dev {
+    background-color: red;
+    width: 100%;
+    color: white;
+}
+
+.auth-form {
+    width: 90%;
+}

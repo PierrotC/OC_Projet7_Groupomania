@@ -1,0 +1,140 @@
+.flex-center {
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.self-center {
+  align-self: center;
+}
+
+.grid {
+  display: grid;
+}
+
+body {
+  font-family: lato, sans-serif;
+  color: #4E5166;
+  margin: 0;
+}
+
+p {
+  margin: 0 10px;
+}
+
+header {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  background-color: #FFD7D7;
+  padding: 20px 50px;
+}
+header .logo img {
+  width: 80%;
+  max-width: 1000px;
+  min-width: 300px;
+}
+header .header-buttons {
+  display: grid;
+  grid-template: auto/auto auto;
+}
+header .header-buttons__account {
+  justify-self: flex-end;
+}
+
+.button {
+  background-color: #FD2D01;
+  padding: 10px;
+  margin: 10px;
+  color: white;
+  border: none;
+  box-shadow: 2px 2px 5px black;
+  width: 150px;
+  font-size: 1em;
+  font-weight: 700;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 200ms;
+}
+.button:hover {
+  background-color: #fe8066;
+}
+.button.disabled {
+  background-color: #4E5166;
+  cursor: not-allowed;
+}
+
+form {
+  font-size: 1em;
+}
+
+.posts {
+  width: 90%;
+}
+
+.post {
+  background-color: #FFD7D7;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 25px;
+  border-radius: 25px;
+  box-shadow: 2px 2px 5px black;
+}
+.post .image {
+  max-height: 500px;
+  text-align: center;
+  margin: 15px 0;
+}
+.post .image img {
+  max-height: inherit;
+  box-shadow: 2px 2px 5px black;
+}
+
+.likes {
+  flex-grow: 1;
+  text-align: end;
+  font-size: 1.5em;
+  justify-content: flex-end;
+}
+.likes .youLike {
+  font-size: 0.7em;
+}
+
+a:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.admin {
+  border: 1px #4E5166 solid;
+  flex-wrap: wrap;
+  padding: 5px;
+}
+.admin h3 {
+  flex-basis: 100%;
+  margin: 0;
+}
+.admin p {
+  margin: 0 2px 0 0;
+}
+
+.dev {
+  background-color: red;
+  width: 100%;
+  color: white;
+}
+
+.container {
+  max-width: 960px;
+}
+
+/*# sourceMappingURL=style.css.map */
