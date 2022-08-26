@@ -13,3 +13,19 @@
 - Created and imported NewPost.vue in Home
 - Integrated template for Login, Signup and Home
 - Added sourceData.json with mocked posts data
+
+### V0.0.5
+- Home page responsive under 500px width
+- Added logout button and route
+- Integrated post creation better
+
+### Objectives
+- V0.1.0 : Integration done
+- V0.2.0 : login/signup page functionnal
+- V0.3.0 : User session stored
+- V0.4.0 : homepage with all posts functionnal
+- VO.5.0 : like system functionnal
+- VO.6.0 : post creation functionnal
+- VO.7.0 : modify and delete posts functionnal
+- V0.8.0 : modify and delete users functionnal
+- V1.0.0 : Everything working

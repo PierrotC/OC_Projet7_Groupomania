@@ -59,16 +59,22 @@ header {
   padding: 20px 50px;
 }
 header .logo img {
-  width: 80%;
-  max-width: 1000px;
-  min-width: 300px;
+  width: 90%;
+  max-width: 800px;
+  min-width: 260px;
 }
 header .header-buttons {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
 }
 header .header-buttons__account {
   justify-self: flex-end;
+}
+@media (max-width: 500px) {
+  header .header-buttons {
+    justify-content: center;
+  }
 }
 
 .button {
@@ -91,6 +97,27 @@ header .header-buttons__account {
 .button.disabled {
   background-color: #4E5166;
   cursor: not-allowed;
+}
+
+article .buttons button i {
+  display: none;
+}
+@media (max-width: 500px) {
+  article .buttons {
+    justify-content: space-between;
+  }
+  article .buttons .likes {
+    flex-grow: 0;
+  }
+  article .buttons button {
+    width: auto;
+  }
+  article .buttons button p {
+    display: none;
+  }
+  article .buttons button i {
+    display: block;
+  }
 }
 
 form {
@@ -134,7 +161,7 @@ form * {
 }
 
 .admin {
-  border: 1px #4E5166 solid;
+  border-top: 1px #4E5166 solid;
   flex-wrap: wrap;
   padding: 5px;
 }
@@ -153,10 +180,12 @@ form * {
 }
 
 .newPost {
-  width: 100%;
+  max-width: 100%;
+  margin: 50px 0;
 }
 .newPost textarea {
   resize: none;
+  max-width: 100%;
 }
 
 /*# sourceMappingURL=main.css.map */

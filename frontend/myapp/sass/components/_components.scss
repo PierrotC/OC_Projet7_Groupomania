@@ -5,15 +5,19 @@ header {
     background-color: $color-secondary;
     padding: 20px 50px;
     .logo img{
-        width: 80%;
-        max-width: 1000px;
-        min-width: 300px;
+        width: 90%;
+        max-width: 800px;
+        min-width: 260px;
     }
     .header-buttons {
         display: flex;
         justify-content: space-between;
+        flex-wrap: wrap;
         &__account {
             justify-self: flex-end;
+        }
+        @media (max-width: $media-small) {
+            justify-content: center;
         }
     }
 }
@@ -37,6 +41,32 @@ header {
     &.disabled {
         background-color: $color-tertiary;
         cursor: not-allowed;
+    }
+    
+}
+
+article {
+    .buttons {
+        button {
+            i {
+                display: none;
+            }
+        }
+        @media (max-width: $media-small) {
+            justify-content: space-between;
+            .likes {
+                flex-grow: 0;
+            }
+            button {
+                width: auto;
+                    p {
+                        display: none;
+                    }
+                    i {
+                        display: block;
+                    }
+            }
+            }
     }
 }
 
@@ -81,7 +111,7 @@ form {
 }
 
 .admin {
-    border: 1px $color-tertiary solid;
+    border-top: 1px $color-tertiary solid;
     flex-wrap: wrap;
     padding: 5px;
     h3 {
@@ -100,8 +130,10 @@ form {
 }
 
 .newPost {
-    width: 100%;
+    max-width: 100%;
+    margin: 50px 0;
     textarea {
         resize: none;
+        max-width: 100%
     }
 }

@@ -9,31 +9,38 @@
       <p class="content">
           {{ post.content }}
       </p>
-      <div class="image" v-if="post.image">
+      <div class="image" v-if="post.imageUrl">
+        <img :src="post.imageUrl" alt="" />
       </div>
       <div class="buttons flex-row flex-center">
-          <!-- <button
-              v-if="userLikes.includes(post._id)"
-              class="button"
-              >
-              Je n'aime plus
-          </button> -->
-          <button
-              class="button">
-              J'aime
-          </button>
-          <button
-          class="button"
-          v-show="this.userAuth.userId == post.userId || this.userAuth.isAdmin"
-          >
-          Modifier
-          </button>
-          <button
-          class="button"
-          v-show="this.userAuth.userId == post.userId || this.userAuth.isAdmin"
-          >
-          Supprimer
-          </button>
+        <!-- <button
+            v-if="userLikes.includes(post._id)"
+            class="button"
+            >
+            Je n'aime plus
+        </button> -->
+        <button
+        class="button text">
+          <p>J'aime</p>
+          <i class="fa-solid fa-thumbs-up"></i>
+        </button>
+
+        <button
+        class="button"
+        v-show="this.userAuth.userId == post.userId || this.userAuth.isAdmin"
+        >
+          <p>Modifier</p>
+          <i class="fa-solid fa-pen-fancy"></i>
+        </button>
+
+        <button
+        class="button"
+        v-show="this.userAuth.userId == post.userId || this.userAuth.isAdmin"
+        >
+          <p>Supprimer</p>
+          <i class="fa-solid fa-trash-can"></i>
+        </button>
+
           <div class="likes flex-row flex-center">
               <p> {{ post.likes }} </p>
               <i class="fa-solid fa-thumbs-up"></i>
@@ -64,7 +71,7 @@
         posts: sourceData,
         userAuth: {
           userId: '62fe4d06170575b06e088753',
-          isAdmin: true,
+          isAdmin: false,
           token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MmZlNGQwNjE3MDU3NWIwNmUwODg3NTMiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE2NjE0NTE4MzksImV4cCI6MTY2MTQ5NTAzOX0.71udKuajaWufjvbqhDhv9EaC1ZoaswwEB_6yHqkuz3o'
           }
       }

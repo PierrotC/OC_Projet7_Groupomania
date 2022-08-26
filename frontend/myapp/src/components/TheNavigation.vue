@@ -17,6 +17,7 @@
       <router-link to="/" class="button">Se connecter</router-link>
       <router-link to="/signup" class="button">Créer un compte</router-link>
       <router-link to="/account" class="button">Compte</router-link>
+      <router-link to="/" class="button">Se déconnecter</router-link>
     </nav>
   </header>
 
