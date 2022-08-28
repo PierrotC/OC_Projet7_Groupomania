@@ -17,21 +17,21 @@ exports.newPost = (req, res, next) => {
     
     // const objectPost = JSON.parse(req.body.post);
     console.log(req.file);
-    // const objectPost = req.file ? {
-    //     ...req.body.post,
-    //     imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-    // } : { ...JSON.parse(req.body.post) };
+    const objectPost = req.file ? {
+        ...req.body,
+        imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+    } : { ...JSON.parse(req.body) };
     // console.log(objectPost);
-    const objectPost = req.body.post;
+    // const objectPost = req.body.post;
     // console.log(objectPost.content);
 
     delete objectPost._id;
-    delete objectPost._userId;
+    delete objectPost.userId;
 
     const post = new Post({
         ...objectPost,
         userId: req.auth.userId,
-        imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+        // imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
         likes: 0,
         usersLiked: []
     });

@@ -5,7 +5,7 @@
 
     <NewPost />
 
-    <article v-for="post in posts" class="post" :key="post._id">
+    <article v-for="post in posts" class="post" :key="post._id" @post-added="updatePosts">
 
       <div class="modifyPop" v-if="this.modifying">
         <form class="modifyPost flex-column flex-center">
@@ -91,7 +91,7 @@
         userLikes: [],
         userAuth: [],
         error: '',
-        modifying: false
+        modifying: false,
       }
     },
     components: {
@@ -157,12 +157,9 @@
       },
       onmodifyPost() {
         this.modifying = true;
-      }
-    },
-    mounted() {
-      this.userAuth = JSON.parse(localStorage.getItem("userAuth"));
-
-      fetch('http://localhost:3000/api/posts', {
+      },
+      updatePosts() {
+        fetch('http://localhost:3000/api/posts', {
             method: 'GET',
             headers: { 
                 'Accept': 'application/json',
@@ -186,6 +183,11 @@
             }
         })
         .catch((error) => { console.error('Error ' + error) });
+      }
+    },
+    mounted() {
+      this.userAuth = JSON.parse(localStorage.getItem("userAuth"));
+      this.updatePosts()
     }
   }
 </script>

@@ -34,6 +34,9 @@
 - Started the modifyPost method but it's a mess --> go back later
 - Like (and cancel like) and delete functions added
 
+### V0.6.1
+- Added the logic to NewPost, fixes needed
+
 ### Objectives
 - V0.1.0 : Integration done
 - V0.2.0 : login/signup page functionnal
