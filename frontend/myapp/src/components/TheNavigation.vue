@@ -8,16 +8,14 @@
 
     <h1>Le réseau social de votre entreprise</h1>
 
-    <!-- <div class="header-buttons">
-        <button class="header-buttons__account button" id="signup-page-btn" >S'inscrire</button>
-    </div> -->
-
     <nav class="header-buttons">
-      <router-link to="/home" class="button">Accueil</router-link>
-      <router-link to="/" class="button">Se connecter</router-link>
-      <router-link to="/signup" class="button">Créer un compte</router-link>
-      <router-link :to="{ name: 'account', params: { id: userAuth.userId}}" class="button">Compte</router-link>
-      <router-link to="/" class="button">Se déconnecter</router-link>
+      <router-link to="/home" class="button" v-show="userAuth.token">Accueil</router-link>
+      <router-link to="/" class="button" v-show="!userAuth.token">Se connecter</router-link>
+      <router-link to="/signup" class="button" v-show="!userAuth.token">Créer un compte</router-link>
+      
+      <router-link :to="{ name: 'account', params: { id: userAuth.userId }}" class="button" v-show="userAuth.token">Compte</router-link>
+
+      <router-link to="/" class="button" @click="logout" v-show="userAuth.token">Se déconnecter</router-link>
     </nav>
   </header>
 
@@ -28,11 +26,23 @@
 export default ({
   data() {
     return {
-      userAuth: {
-        userId: '62fe4d06170575b06e088753',
-        isAdmin: true,
-        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MmZlNGQwNjE3MDU3NWIwNmUwODg3NTMiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE2NjE0NTE4MzksImV4cCI6MTY2MTQ5NTAzOX0.71udKuajaWufjvbqhDhv9EaC1ZoaswwEB_6yHqkuz3o'
-      }
+      userAuth: {userId: '/'},
+      location: ''
+    }
+  },
+  created() {
+    if(localStorage.length) {
+      this.userAuth = JSON.parse(localStorage.getItem("userAuth"));
+    }
+    const loc = window.location.href.split('/');
+    this.location = loc[loc.length - 1];
+    // let test = this.location;
+    // console.log(test);
+
+  },
+  methods: {
+    logout() {
+      localStorage.clear();
     }
   }
 })

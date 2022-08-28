@@ -1,10 +1,10 @@
 <template>
   <div id="main">
   
-    <TheNavigation />
+    <TheNavigation :key="$route.path" />
     
     <div class="container">
-        <router-view/>
+        <router-view />
     </div>
 
   </div>

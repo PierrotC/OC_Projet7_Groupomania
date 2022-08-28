@@ -28,13 +28,21 @@
 - Login and signup functionnal
 - User session stored in localStorage
 
+### V0.6.0
+- Get all post route functionnal (in methods instead of PostService)
+- Buttons on navigation dynamically changing depending on the available navigation
+- Started the modifyPost method but it's a mess --> go back later
+- Like (and cancel like) and delete functions added
+
 ### Objectives
 - V0.1.0 : Integration done
 - V0.2.0 : login/signup page functionnal
 - V0.3.0 : User session stored
-- V0.4.0 : homepage with all posts functionnal
+- V0.4.0 : homepage displaying all posts functionnal
 - VO.5.0 : like system functionnal
-- VO.6.0 : post creation functionnal
-- VO.7.0 : modify and delete posts functionnal
+- VO.6.0 : delete posts functionnal
+- VO.7.0 : post creation functionnal
+- V0.8.0 : images handled everywhere (creation, display, modification(?))
 - V0.8.0 : modify and delete users functionnal
+- VO.9.0 : modify posts functionnal
 - V1.0.0 : Everything working
