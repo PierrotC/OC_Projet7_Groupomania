@@ -24,6 +24,10 @@
 - All links and routes functionnal, except for the link to another account for admin
 - Initialized PostService.js to manage API routes
 
+### V0.3.0
+- Login and signup functionnal
+- User session stored in localStorage
+
 ### Objectives
 - V0.1.0 : Integration done
 - V0.2.0 : login/signup page functionnal
