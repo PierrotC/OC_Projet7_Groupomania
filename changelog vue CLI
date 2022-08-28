@@ -19,6 +19,11 @@
 - Added logout button and route
 - Integrated post creation better
 
+### V0.1.0
+- Finished integration
+- All links and routes functionnal, except for the link to another account for admin
+- Initialized PostService.js to manage API routes
+
 ### Objectives
 - V0.1.0 : Integration done
 - V0.2.0 : login/signup page functionnal

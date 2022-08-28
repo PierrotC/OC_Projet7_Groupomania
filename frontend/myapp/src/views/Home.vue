@@ -13,29 +13,31 @@
         <img :src="post.imageUrl" alt="" />
       </div>
       <div class="buttons flex-row flex-center">
-        <!-- <button
-            v-if="userLikes.includes(post._id)"
-            class="button"
-            >
-            Je n'aime plus
-        </button> -->
         <button
-        class="button text">
+          v-if="userLikes.includes(post._id)"
+          class="button"
+        >
+            Je n'aime plus
+        </button>
+        <button
+          v-else
+          class="button text"
+        >
           <p>J'aime</p>
           <i class="fa-solid fa-thumbs-up"></i>
         </button>
 
         <button
-        class="button"
-        v-show="this.userAuth.userId == post.userId || this.userAuth.isAdmin"
+          class="button"
+          v-show="this.userAuth.userId == post.userId || this.userAuth.isAdmin"
         >
           <p>Modifier</p>
           <i class="fa-solid fa-pen-fancy"></i>
         </button>
 
         <button
-        class="button"
-        v-show="this.userAuth.userId == post.userId || this.userAuth.isAdmin"
+          class="button"
+          v-show="this.userAuth.userId == post.userId || this.userAuth.isAdmin"
         >
           <p>Supprimer</p>
           <i class="fa-solid fa-trash-can"></i>
@@ -49,8 +51,8 @@
       </div>
       <div class="admin flex-row" v-show="userAuth.isAdmin">
           <h3>Admin</h3>
-          <p>Posté par : </p>
-          <a>{{ post.userId }}</a>
+          <p>Posté par : {{ post.userId }}</p>
+          <router-link :to="{ name: 'account', params: { id: post.userId }}" class="button">Accéder au compte</router-link>
       </div>
       <!--    <div class="dev">
           {{ 'Identifié : ' + this.userAuth.userId + ' propriétaire : ' + post.userId }} <br />
@@ -65,19 +67,29 @@
   import NewPost from '../components/NewPost.vue'
 
   import sourceData from '../../sourceData.json'
+
   export default {
     data() {
       return {
-        posts: sourceData,
+        posts: sourceData.posts,
+        userLikes: [],
         userAuth: {
           userId: '62fe4d06170575b06e088753',
-          isAdmin: false,
+          isAdmin: true,
           token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MmZlNGQwNjE3MDU3NWIwNmUwODg3NTMiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE2NjE0NTE4MzksImV4cCI6MTY2MTQ5NTAzOX0.71udKuajaWufjvbqhDhv9EaC1ZoaswwEB_6yHqkuz3o'
           }
       }
     },
     components: {
       NewPost
+    },
+    mounted() {
+      console.log(this.posts);
+      for(let post of this.posts) {
+        if(post.usersLiked.includes(this.userAuth.userId)) {
+          this.userLikes.push(post._id);
+        }
+      }
     }
   }
 </script>

@@ -9,7 +9,7 @@ const routes = [
   },
   { path: '/home', name: 'home', component: () => import(/* webpackChunkName: "homeview" */"@/views/Home.vue") },
   { path: '/signup', name: 'signup', component: () => import(/* webpackChunkName: "signup" */"@/views/Signup.vue") },
-  { path: '/account', name: 'account', component: () => import(/* webpackChunkName: "account" */"@/views/Account.vue") }
+  { path: '/account/:id', name: 'account', component: () => import(/* webpackChunkName: "account" */"@/views/Account.vue") }
 ]
 
 const router = createRouter({

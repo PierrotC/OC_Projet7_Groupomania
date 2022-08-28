@@ -88,6 +88,7 @@ header .header-buttons__account {
   font-size: 1em;
   font-weight: 700;
   border-radius: 10px;
+  text-align: center;
   cursor: pointer;
   transition: 200ms;
 }
@@ -164,6 +165,7 @@ form * {
   border-top: 1px #4E5166 solid;
   flex-wrap: wrap;
   padding: 5px;
+  align-items: center;
 }
 .admin h3 {
   flex-basis: 100%;
@@ -181,11 +183,19 @@ form * {
 
 .newPost {
   max-width: 100%;
-  margin: 50px 0;
+  margin-bottom: 50px;
 }
 .newPost textarea {
   resize: none;
   max-width: 100%;
+}
+
+.separator {
+  width: 80%;
+  height: 1px;
+  background-color: #4E5166;
+  width: 100%;
+  margin: 20px 0 0 0;
 }
 
 /*# sourceMappingURL=main.css.map */
