@@ -1,14 +1,18 @@
 <template>
     <div id="component_main">
 
-            <h1>Créez un compte</h1>
+        <h1>Créez un compte</h1>
 
-            <form class="auth-form flex-column" @submit.prevent="signup">
+        <form class="auth-form flex-column" @submit.prevent="signup">
+
+            <label for="userName">Nom d'utilisateur</label>
+            <input type="text" id="userName" v-model="signupForm.userName" required />
+
             <label for="email">E-mail</label>
-            <input type="email" id="email" v-model="signupForm.email"/>
+            <input type="email" id="email" v-model="signupForm.email" required />
 
             <label for="password">Mot de passe</label>
-            <input type="password" id="password" v-model="signupForm.password"/>
+            <input type="password" id="password" v-model="signupForm.password" required />
 
             <input type="submit" class="button self-center" value="Valider" />
 
@@ -24,7 +28,8 @@ export default ({
         return {
             signupForm: {
                 email: '',
-                password: ''
+                password: '',
+                userName: ''
             }
         }
     },
@@ -44,10 +49,7 @@ export default ({
                     return Promise.reject(error);
                 }
             })
-            .then((userData) => {
-                const user = {
-                    ...userData
-                };
+            .then(() => {
                 window.alert('Votre compte a bien été créé ! Veuillez vous connecter.')
                 this.$router.push('/');
             })

@@ -37,7 +37,12 @@
 ### V0.6.1
 - Added the logic to NewPost, fixes needed
 
-### Objectives
+### V0.7.0
+- Delete user ok for user and admin
+- Post creation with text only functionnal
+- Post creation with image only and with image and text functionnal
+
+### Objectives:
 - V0.1.0 : Integration done
 - V0.2.0 : login/signup page functionnal
 - V0.3.0 : User session stored
@@ -46,6 +51,6 @@
 - VO.6.0 : delete posts functionnal
 - VO.7.0 : post creation functionnal
 - V0.8.0 : images handled everywhere (creation, display, modification(?))
-- V0.8.0 : modify and delete users functionnal
-- VO.9.0 : modify posts functionnal
+- V0.9.0 : modify and delete users functionnal
+- VO.10.0 : modify posts functionnal
 - V1.0.0 : Everything working

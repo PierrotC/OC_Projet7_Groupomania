@@ -1,11 +1,15 @@
 <template>
   <div id="component_main">
 
+  <p>Bonjour {{ userAuth.userName }} !</p>
+
   <h1>Accueil</h1>
 
-    <NewPost />
+    <NewPost @post-added="updatePosts" />
 
-    <article v-for="post in posts" class="post" :key="post._id" @post-added="updatePosts">
+    <article v-for="post in posts" class="post" :key="post._id">
+
+      <h3>{{ post.userName }} a posté :</h3>
 
       <div class="modifyPop" v-if="this.modifying">
         <form class="modifyPost flex-column flex-center">
@@ -66,7 +70,7 @@
       </div>
       <div class="admin flex-row" v-show="userAuth.isAdmin">
           <h3>Admin</h3>
-          <p>Posté par : {{ post.userId }}</p>
+          <p>Posté par : {{ post.userName + ' ( ' + post.userId + ' )' }}</p>
           <router-link :to="{ name: 'account', params: { id: post.userId }}" class="button">Accéder au compte</router-link>
       </div>
       <!-- <ModifyPop v-show="modifyPop" /> -->

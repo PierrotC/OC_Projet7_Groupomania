@@ -15,10 +15,10 @@
 
         <form class="auth-form flex-column" @submit.prevent="login()">
             <label for="email">E-mail</label>
-            <input type="email" id="email" v-model="authForm.email"/>
+            <input type="email" id="email" v-model="authForm.email" required />
 
             <label for="password">Mot de passe</label>
-            <input type="password" id="password" v-model="authForm.password" />
+            <input type="password" id="password" v-model="authForm.password" required />
 
             <input type="submit" class="button self-center" value="Valider" />
         </form>

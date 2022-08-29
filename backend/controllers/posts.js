@@ -14,16 +14,15 @@ exports.getAllPosts = (req, res, next) => {
 // };
 
 exports.newPost = (req, res, next) => {
-    
-    // const objectPost = JSON.parse(req.body.post);
-    console.log(req.file);
+
+    // file optionnal :
     const objectPost = req.file ? {
-        ...req.body,
+        ...JSON.parse(req.body.post),
         imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-    } : { ...JSON.parse(req.body) };
-    // console.log(objectPost);
-    // const objectPost = req.body.post;
-    // console.log(objectPost.content);
+    } : { ...JSON.parse(req.body.post) };
+
+    console.log("objectPost :");
+    console.log(objectPost);
 
     delete objectPost._id;
     delete objectPost.userId;
@@ -31,7 +30,7 @@ exports.newPost = (req, res, next) => {
     const post = new Post({
         ...objectPost,
         userId: req.auth.userId,
-        // imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+        // imageUrl: img,
         likes: 0,
         usersLiked: []
     });

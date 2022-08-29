@@ -1,55 +1,117 @@
 <template>
     <div id="component_main">
 
-        <h1>Votre compte : {{ account._id }}</h1>
+        <h1>Votre compte : {{ account.userName }}</h1>
 
         <div class="admin flex-row" v-show="userAuth.isAdmin">
-            <p>Admin :</p> <br />
-            Compte de {{ $route.params.id }}
+            <p>
+                Admin : <br />
+                Compte de {{ account.userName + ' ( ' + accountId + ' )' }}
+            </p>
         </div>
 
         <div class="modifyAccount flex-column flex-center">
             <h2>Modifier votre compte</h2>
-            <form class="auth-form flex-column flex-center">
+
+            <form class="auth-form flex-column flex-center" @submit.prevent="onModifyAccount">
+                <label for="userName">Nom d'utilisateur</label>
+                <input type="text" id="userName" v-model="account.userName" />
+
                 <label for="email">E-mail</label>
-                <input type="email" id="email" :value="`${account.email}`" />
+                <input type="email" id="email" v-model="account.email" />
 
                 <label for="password">Mot de passe</label>
-                <input type="password" id="password" />
+                <input type="password" id="password" v-model="account.password" />
 
                 <input type="submit" class="button" value="Valider" />
             </form>
         </div>
+
         <div class="separator"></div>
         <div class="deleteAccount flex-center flex-column">
             <h2>Supprimer votre compte</h2>
-            <button class="button">Supprimer</button>
+            <button class="button" @click="onDeleteAccount">Supprimer</button>
         </div>
 
     </div>
 </template>
 
 <script>
-import sourceData from '../../sourceData.json'
 
 export default ({
     data() {
       return {
-        userAuth: {
-          userId: '62fe4d06170575b06e088753',
-          isAdmin: true,
-          token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MmZlNGQwNjE3MDU3NWIwNmUwODg3NTMiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE2NjE0NTE4MzksImV4cCI6MTY2MTQ5NTAzOX0.71udKuajaWufjvbqhDhv9EaC1ZoaswwEB_6yHqkuz3o'
+        userAuth: {},
+        account: {
+            password: ''
         }
       }
+    },
+    methods: {
+        onDeleteAccount() {
+            fetch(`http://localhost:3000/api/auth/${this.accountId}`, {
+                method: "DELETE",
+                headers: {
+                'Accept': 'application/json', 
+                'Content-Type': 'application/json',
+                'authorization': `Bearer ${this.userAuth.token}`
+                }
+            })
+            .then(res => {
+                if(res.ok) { return res.json() }
+                else {
+                    return Promise.reject(error);
+                }
+            })
+            .then(() => {
+                if(this.userAuth.isAdmin) {
+                    this.$router.push('/');
+                    localStorage.clear();
+                } else {
+                    this.$router.push('/home');
+                }
+            })
+            .catch((error) => { console.error('Erreur' + error) });
+        },
+        onModifyAccount() {
+
+        }
     },
     computed: {
         accountId() {
             return this.$route.params.id;
         },
-        account() {
-            console.log(sourceData.users.find(acc => acc._id === this.accountId)._id);
-            return sourceData.users.find(acc => acc._id === this.accountId);
-        }
+        // account() {
+        //     console.log(sourceData.users.find(acc => acc._id === this.accountId)._id);
+        //     return sourceData.users.find(acc => acc._id === this.accountId);
+        // }
+    },
+    created() {
+        this.userAuth = JSON.parse(localStorage.getItem("userAuth"));
+    },
+    mounted() {
+        fetch(`http://localhost:3000/api/auth/${this.accountId}`, {
+                method: "GET",
+                headers: { 
+                'Accept': 'application/json', 
+                'Content-Type': 'application/json',
+                'authorization': `Bearer ${this.userAuth.token}`
+                }
+            })
+            .then(res => {
+                if(res.ok) { return res.json() }
+                else {
+                    return Promise.reject(error);
+                }
+            })
+            .then((user) => {
+                this.account = {
+                    userName: user.userName,
+                    email: user.email,
+                    userId: user._id
+                };
+            })
+            .catch((error) => { console.error('Erreur' + error) });
     }
 })
 </script>
