@@ -134,6 +134,8 @@ form * {
 }
 
 .post {
+  transition: 0.5s ease-in-out;
+  opacity: 1;
   background-color: #FFD7D7;
   width: 100%;
   padding: 10px;

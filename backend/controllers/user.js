@@ -94,10 +94,8 @@ exports.modifyAccount = (req, res, next) => {
     
     const objectUser = { ...req.body };
 
-    // delete user entry of isAdmin if not an admin
-    if(!req.auth.isAdmin) {
+    // delete user entry of isAdmin
         delete objectUser.isAdmin;
-    }
 
     function passwordIsStrong(password) {
         const caps = /[A-Z]/g;
@@ -123,20 +121,31 @@ exports.modifyAccount = (req, res, next) => {
             if(user._id != req.auth.userId && !req.auth.isAdmin) {
                 res.status(403).json({ message: 'You are not allowed to do that' });
             } else {
-                if(!passwordIsStrong(objectUser.password)) {
-                    res.status(400).json({ message: 'The password is not secure enough' });
-                } else {
-                    bcrypt.hash(objectUser.password, 10)
-                        .then(hash => { 
-                            User.updateOne({ _id: req.params.id}, {
-                                email: objectUser.email,
-                                password: hash,
-                                _id: req.params.id
+                if(objectUser.password) {
+                    if(!passwordIsStrong(objectUser.password)) {
+                        res.status(400).json({ message: 'The password is not secure enough' });
+                    } else {
+                        bcrypt.hash(objectUser.password, 10)
+                            .then(hash => { 
+                                User.updateOne({ _id: req.params.id}, {
+                                    userName: objectUser.userName,
+                                    email: objectUser.email,
+                                    password: hash,
+                                    _id: req.params.id
+                                })
+                                    .then(() => res.status(200).json({ message: "User modified." }))
+                                    .catch(error => res.status(500).json({ error }));
                             })
-                                .then(() => res.status(200).json({ message: "User modified." }))
-                                .catch(error => res.status(500).json({ error }));
-                        })
-                        .catch();
+                            .catch(error => res.status(500).json({ error }));
+                        }
+                } else {
+                    User.updateOne({ _id: req.params.id}, {
+                        userName: objectUser.userName,
+                        email: objectUser.email,
+                        _id: req.params.id
+                    })
+                        .then(() => res.status(200).json({ message: "User modified." }))
+                        .catch(error => res.status(500).json({ error }));
                 }
             }
         })

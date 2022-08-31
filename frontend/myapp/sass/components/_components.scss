@@ -84,6 +84,8 @@ form {
 }
 
 .post {
+    transition: .5s ease-in-out;
+    opacity: 1;
     background-color: $color-secondary;
     width: 100%;
     padding: 10px;

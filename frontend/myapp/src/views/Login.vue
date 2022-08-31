@@ -54,8 +54,6 @@ export default ({
                     return Promise.reject(error);
                 }})
             .then((userData) => {
-                console.log('Login userData :')
-                console.log(userData);
                 const user = {
                     ...userData
                 }

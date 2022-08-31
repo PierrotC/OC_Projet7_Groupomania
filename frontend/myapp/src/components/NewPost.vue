@@ -50,10 +50,7 @@ export default ({
                 this.$emit('post-added');
 
                 // reset data
-                this.newPost.post = {
-                    content: '',
-                    userName: ''
-                };
+                this.newPost.post.content = '';
                 this.file = '';
                 this.$refs.fileupload.value=null;
 

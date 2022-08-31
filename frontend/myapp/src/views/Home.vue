@@ -179,7 +179,7 @@
             }
         })
         .then((data) => {
-            this.posts = data;
+            this.posts = data.reverse();
             for(let post of data) {
                 if(post.usersLiked.includes(this.userAuth.userId)) {
                     this.userLikes.push(post._id);

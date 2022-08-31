@@ -42,6 +42,10 @@
 - Post creation with text only functionnal
 - Post creation with image only and with image and text functionnal
 
+### V0.9.0
+- Modify user functionnal for user and admin
+- Removed some console.log's
+
 ### Objectives:
 - V0.1.0 : Integration done
 - V0.2.0 : login/signup page functionnal

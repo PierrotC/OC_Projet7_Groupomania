@@ -21,9 +21,6 @@ exports.newPost = (req, res, next) => {
         imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
     } : { ...JSON.parse(req.body.post) };
 
-    console.log("objectPost :");
-    console.log(objectPost);
-
     delete objectPost._id;
     delete objectPost.userId;
 

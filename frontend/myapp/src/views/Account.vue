@@ -28,6 +28,7 @@
         </div>
 
         <div class="separator"></div>
+
         <div class="deleteAccount flex-center flex-column">
             <h2>Supprimer votre compte</h2>
             <button class="button" @click="onDeleteAccount">Supprimer</button>
@@ -65,16 +66,35 @@ export default ({
             })
             .then(() => {
                 if(this.userAuth.isAdmin) {
+                    this.$router.push('/home');
+                } else {
                     this.$router.push('/');
                     localStorage.clear();
-                } else {
-                    this.$router.push('/home');
                 }
             })
             .catch((error) => { console.error('Erreur' + error) });
         },
         onModifyAccount() {
+            fetch(`http://localhost:3000/api/auth/${this.accountId}`, {
+                method: "PUT",
+                headers: {
+                'Accept': 'application/json', 
+                'Content-Type': 'application/json',
+                'authorization': `Bearer ${this.userAuth.token}`
+                },
+                body: JSON.stringify(this.modAccount)
+            })
+            .then(res => {
+                if(res.ok) {
+                    window.alert('Votre compte a bien été modifié !')
 
+                    return res.json()
+                    }
+                else {
+                    return Promise.reject(error);
+                }
+            })
+            .catch((error) => { console.error('Erreur' + error) });
         }
     },
     computed: {
@@ -100,6 +120,10 @@ export default ({
             })
             .then(res => {
                 if(res.ok) { return res.json() }
+                else if(res.status == 404) {
+                    window.alert('Ce compte n\'existe pas ou plus !')
+                    this.$router.push('/home');
+                }
                 else {
                     return Promise.reject(error);
                 }
