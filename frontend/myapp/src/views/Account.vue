@@ -82,12 +82,13 @@ export default ({
                 'Content-Type': 'application/json',
                 'authorization': `Bearer ${this.userAuth.token}`
                 },
-                body: JSON.stringify(this.modAccount)
+                body: JSON.stringify(this.account)
             })
             .then(res => {
                 if(res.ok) {
+                    this.userAuth.userName = this.account.userName;
+                    localStorage.setItem('userAuth', JSON.stringify(this.userAuth));
                     window.alert('Votre compte a bien été modifié !')
-
                     return res.json()
                     }
                 else {

@@ -19,7 +19,8 @@ export default ({
             newPost: {
                 post: {
                     content: '',
-                    userName: ''
+                    userName: '',
+                    createdAt: ''
                 }
             },
             file: {},
@@ -31,6 +32,8 @@ export default ({
         },
         onNewPost() {
             const url = `http://localhost:3000/api/posts/`;
+
+            this.newPost.post.createdAt = '';
 
             let formData = new FormData();
 

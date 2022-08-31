@@ -7,79 +7,89 @@
 
     <NewPost @post-added="updatePosts" />
 
-    <article v-for="post in posts" class="post" :key="post._id">
+    <div class="wrapper-posts" v-if="posts.length > 0">
+      <article v-for="post in posts" class="post" :key="post._id" >
 
-      <h3>{{ post.userName }} a posté :</h3>
+        <div class="postInfo flex-row">
+          <h3 v-show="post.userName">{{ post.userName }} a posté :</h3>
+          <p class="creation-date" v-show="post.createdAt != NaN">
+            {{
+              `le ${ post.createdAt.getDate() }/${ post.createdAt.getMonth() + 1 }/${ post.createdAt.getFullYear() }
+                à ${ post.createdAt.getHours() }h${ post.createdAt.getMinutes() }`
+            }}
+          </p>
+        </div>
 
-      <div class="modifyPop" v-if="this.modifying">
-        <form class="modifyPost flex-column flex-center">
-            <label for="postContent">Modifier la publication</label>
-            <textarea name="postContent" id="postContent" cols="150" rows="10" placeholder="Ecrivez votre texte ici"></textarea>
-            <input type="submit" class="button" value="Publier">
-        </form>
-      </div>
+        <div class="modifyPop" v-if="this.modifying">
+          <form class="modifyPost flex-column flex-center">
+              <label for="postContent">Modifier la publication</label>
+              <textarea name="postContent" id="postContent" cols="150" rows="10" placeholder="Ecrivez votre texte ici"></textarea>
+              <input type="submit" class="button" value="Publier">
+          </form>
+        </div>
 
-      <p class="content" v-else>
-          {{ post.content }}
-      </p>
+        <p class="content" v-else>
+            {{ post.content }}
+        </p>
 
-      <div class="image" v-show="post.imageUrl">
-        <img :src="post.imageUrl" alt="" />
-      </div>
+        <div class="image" v-show="post.imageUrl">
+          <img :src="post.imageUrl" alt="" />
+        </div>
 
-      <div class="buttons flex-row flex-center">
+        <div class="buttons flex-row flex-center">
+          <button
+            v-if="userLikes.includes(post._id)"
+            class="button"
+            @click="onLikePost(post._id, -1)"
+          >
+            Je n'aime plus
+          </button>
+
         <button
-          v-if="userLikes.includes(post._id)"
-          class="button"
-          @click="onLikePost(post._id, -1)"
+          v-else
+          class="button text"
+          @click="onLikePost(post._id, 1)"
         >
-          Je n'aime plus
+          <p>J'aime</p>
+          <i class="fa-solid fa-thumbs-up"></i>
         </button>
 
-      <button
-        v-else
-        class="button text"
-        @click="onLikePost(post._id, 1)"
-      >
-        <p>J'aime</p>
-        <i class="fa-solid fa-thumbs-up"></i>
-      </button>
+        <button
+          class="button"
+          v-show="this.userAuth.userId == post.userId || this.userAuth.isAdmin"
+        >
+          <p>Modifier</p>
+          <i class="fa-solid fa-pen-fancy"></i>
+        </button>
 
-      <button
-        class="button"
-        v-show="this.userAuth.userId == post.userId || this.userAuth.isAdmin"
-      >
-        <p>Modifier</p>
-        <i class="fa-solid fa-pen-fancy"></i>
-      </button>
+        <button
+          class="button"
+          v-show="this.userAuth.userId == post.userId || this.userAuth.isAdmin"
+          @click="onDelete(post._id)"
+        >
+          <p>Supprimer</p>
+          <i class="fa-solid fa-trash-can"></i>
+        </button>
 
-      <button
-        class="button"
-        v-show="this.userAuth.userId == post.userId || this.userAuth.isAdmin"
-        @click="onDelete(post._id)"
-      >
-        <p>Supprimer</p>
-        <i class="fa-solid fa-trash-can"></i>
-      </button>
-
-        <div class="likes flex-row flex-center">
-            <p> {{ post.likes }} </p>
-            <i class="fa-solid fa-thumbs-up"></i>
+          <div class="likes flex-row flex-center">
+              <p> {{ post.likes }} </p>
+              <i class="fa-solid fa-thumbs-up"></i>
+          </div>
+            
         </div>
-          
-      </div>
-      <div class="admin flex-row" v-show="userAuth.isAdmin">
-          <h3>Admin</h3>
-          <p>Posté par : {{ post.userName + ' ( ' + post.userId + ' )' }}</p>
-          <router-link :to="{ name: 'account', params: { id: post.userId }}" class="button">Accéder au compte</router-link>
-      </div>
-      <!-- <ModifyPop v-show="modifyPop" /> -->
-      <!--    <div class="dev">
-          {{ 'Identifié : ' + this.userAuth.userId + ' propriétaire : ' + post.userId }} <br />
-          {{ 'Token : ' + this.userAuth.token }}
-      </div> -->
-    </article>
-
+        <div class="admin flex-row" v-show="userAuth.isAdmin">
+            <h3>Admin</h3>
+            <p>Posté par : {{ post.userName + ' ( ' + post.userId + ' )' }}</p>
+            <router-link :to="{ name: 'account', params: { id: post.userId }}" class="button">Accéder au compte</router-link>
+        </div>
+        <!-- <ModifyPop v-show="modifyPop" /> -->
+        <!--    <div class="dev">
+            {{ 'Identifié : ' + this.userAuth.userId + ' propriétaire : ' + post.userId }} <br />
+            {{ 'Token : ' + this.userAuth.token }}
+        </div> -->
+      </article>
+    </div>
+    <div v-else>Rien à afficher ! Soyez le.a premier.e à publier !</div>
   </div>  
 </template>
 
@@ -179,7 +189,13 @@
             }
         })
         .then((data) => {
-            this.posts = data.reverse();
+            
+            data.reverse();
+            this.posts = data.map(post => ({
+              ...post,
+              createdAt: new Date(post.createdAt)
+            }));
+          
             for(let post of data) {
                 if(post.usersLiked.includes(this.userAuth.userId)) {
                     this.userLikes.push(post._id);

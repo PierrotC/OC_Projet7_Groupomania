@@ -102,6 +102,12 @@ form {
             max-width: 90%;
         }
     }
+    .postInfo {
+        align-items: center;
+        h3 {
+            flex-grow: 1;
+        }
+    }
 }
 
 .likes {

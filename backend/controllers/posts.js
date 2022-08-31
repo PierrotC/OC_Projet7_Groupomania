@@ -29,7 +29,8 @@ exports.newPost = (req, res, next) => {
         userId: req.auth.userId,
         // imageUrl: img,
         likes: 0,
-        usersLiked: []
+        usersLiked: [],
+        createdAt: new Date()
     });
 
     post.save()

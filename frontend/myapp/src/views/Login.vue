@@ -57,7 +57,7 @@ export default ({
                 const user = {
                     ...userData
                 }
-                localStorage.setItem("userAuth", JSON.stringify(user));
+                localStorage.setItem('userAuth', JSON.stringify(user));
                 this.$router.push('home');
             })
             .catch((error) => {

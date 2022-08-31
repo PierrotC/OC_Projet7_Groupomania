@@ -46,6 +46,12 @@
 - Modify user functionnal for user and admin
 - Removed some console.log's
 
+### V0.9.1
+- Displayed the post in anti-chronological order
+- Added the date of creation of the post
+- Solved bug that didn't send the new userName to LS when modifying account
+- Added favicon.ico
+
 ### Objectives:
 - V0.1.0 : Integration done
 - V0.2.0 : login/signup page functionnal

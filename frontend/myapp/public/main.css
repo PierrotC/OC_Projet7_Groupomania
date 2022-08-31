@@ -153,6 +153,12 @@ form * {
   box-shadow: 2px 2px 5px black;
   max-width: 90%;
 }
+.post .postInfo {
+  align-items: center;
+}
+.post .postInfo h3 {
+  flex-grow: 1;
+}
 
 .likes {
   flex-grow: 1;
