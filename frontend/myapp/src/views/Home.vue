@@ -7,12 +7,12 @@
 
     <NewPost @post-added="updatePosts" />
 
-    <div class="wrapper-posts" v-if="posts.length > 0">
+    <div class="wrapper-posts flex-column flex-center" v-if="posts.length > 0">
       <article v-for="post in posts" class="post" :key="post._id" >
 
         <div class="postInfo flex-row">
           <h3 v-show="post.userName">{{ post.userName }} a posté :</h3>
-          <p class="creation-date" v-show="post.createdAt != NaN">
+          <p class="creation-date">
             {{
               `le ${ post.createdAt.getDate() }/${ post.createdAt.getMonth() + 1 }/${ post.createdAt.getFullYear() }
                 à ${ post.createdAt.getHours() }h${ post.createdAt.getMinutes() }`
@@ -20,11 +20,12 @@
           </p>
         </div>
 
-        <div class="modifyPop" v-if="this.modifying">
-          <form class="modifyPost flex-column flex-center">
-              <label for="postContent">Modifier la publication</label>
-              <textarea name="postContent" id="postContent" cols="150" rows="10" placeholder="Ecrivez votre texte ici"></textarea>
-              <input type="submit" class="button" value="Publier">
+        <div class="editPost" v-if="post.editing">
+          <form class="flex-column flex-center" @submit.prevent="onEditPost(post)">
+            <label for="postContent">Modifier la publication</label>
+            <textarea name="postContent" id="postContent" cols="150" rows="10" v-model="post.content"></textarea>
+            <input type="submit" class="button" value="Publier">
+            <button class="button" @click="post.editing = false">Annuler</button>
           </form>
         </div>
 
@@ -36,7 +37,7 @@
           <img :src="post.imageUrl" alt="" />
         </div>
 
-        <div class="buttons flex-row flex-center">
+        <div class="buttons flex-row flex-center" v-if="!post.editing">
           <button
             v-if="userLikes.includes(post._id)"
             class="button"
@@ -57,6 +58,7 @@
         <button
           class="button"
           v-show="this.userAuth.userId == post.userId || this.userAuth.isAdmin"
+          @click="post.editing = true"
         >
           <p>Modifier</p>
           <i class="fa-solid fa-pen-fancy"></i>
@@ -77,16 +79,12 @@
           </div>
             
         </div>
+
         <div class="admin flex-row" v-show="userAuth.isAdmin">
             <h3>Admin</h3>
             <p>Posté par : {{ post.userName + ' ( ' + post.userId + ' )' }}</p>
             <router-link :to="{ name: 'account', params: { id: post.userId }}" class="button">Accéder au compte</router-link>
         </div>
-        <!-- <ModifyPop v-show="modifyPop" /> -->
-        <!--    <div class="dev">
-            {{ 'Identifié : ' + this.userAuth.userId + ' propriétaire : ' + post.userId }} <br />
-            {{ 'Token : ' + this.userAuth.token }}
-        </div> -->
       </article>
     </div>
     <div v-else>Rien à afficher ! Soyez le.a premier.e à publier !</div>
@@ -95,8 +93,6 @@
 
 <script>
   import NewPost from '../components/NewPost.vue'
-  // import ModifyPop from '../component/ModifyPop.vue'
-  // import PostService from '../PostService'
 
   export default {
     data() {
@@ -104,8 +100,7 @@
         posts: [],
         userLikes: [],
         userAuth: [],
-        error: '',
-        modifying: false,
+        error: ''
       }
     },
     components: {
@@ -169,9 +164,9 @@
           })
           .catch((error) => { console.error('Error ' + error) });
       },
-      onmodifyPost() {
-        this.modifying = true;
-      },
+      // onmodifyPost() {
+      //   this.modifying = true;
+      // },
       updatePosts() {
         fetch('http://localhost:3000/api/posts', {
             method: 'GET',
@@ -193,7 +188,50 @@
             data.reverse();
             this.posts = data.map(post => ({
               ...post,
-              createdAt: new Date(post.createdAt)
+              createdAt: new Date(post.createdAt),
+              editing: false
+            }));
+          
+            for(let post of data) {
+                if(post.usersLiked.includes(this.userAuth.userId)) {
+                    this.userLikes.push(post._id);
+                }
+            }
+        })
+        .catch((error) => { console.error('Error ' + error) });
+      },
+      onEditPost(post) {
+
+
+        console.log(post)
+
+        // let editedPost = this.posts.find((el) => {
+        //   return el._id === id;
+        // })._id
+
+        fetch(`http://localhost:3000/api/posts/${editedPost.id}`, {
+            method: 'PUT',
+            headers: { 
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+              'authorization': `Bearer ${this.userAuth.token}`
+              },
+            body: JSON.stringify(editedPost)
+        })
+        .then((res) => {
+            if(res.ok) {
+                return res.json();
+            } else {
+                return Promise.reject(error);
+            }
+        })
+        .then((data) => {
+            
+            data.reverse();
+            this.posts = data.map(post => ({
+              ...post,
+              createdAt: new Date(post.createdAt),
+              editing: false
             }));
           
             for(let post of data) {

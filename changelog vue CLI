@@ -52,6 +52,9 @@
 - Solved bug that didn't send the new userName to LS when modifying account
 - Added favicon.ico
 
+### V0.9.2
+- Integrated the editPost element, working on the logic
+
 ### Objectives:
 - V0.1.0 : Integration done
 - V0.2.0 : login/signup page functionnal

@@ -88,7 +88,7 @@ form {
     opacity: 1;
     background-color: $color-secondary;
     width: 100%;
-    padding: 10px;
+    padding: 15px;
     margin-bottom: 25px;
     border-radius: 25px;
     box-shadow: 2px 2px 5px black;
@@ -142,11 +142,7 @@ form {
 
 .newPost {
     max-width: 100%;
-    margin-bottom: 50px;
-    textarea {
-        resize: none;
-        max-width: 100%
-    }
+    margin-bottom: 50px; 
 }
 .separator {
     width: 80%;
@@ -154,4 +150,19 @@ form {
     background-color: $color-tertiary;
     width: 100%;
     margin: 20px 0 0 0;
+}
+
+textarea {
+        resize: none;
+        max-width: 90%
+}
+
+.wrapper-posts {
+    width: 100%;
+}
+
+.editPost {
+    form {
+        max-width: 100%;
+    }
 }
