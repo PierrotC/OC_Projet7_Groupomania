@@ -21,9 +21,10 @@
         </div>
 
         <div class="editPost" v-if="post.editing">
-          <form class="flex-column flex-center" @submit.prevent="onEditPost(post)">
+          <form class="flex-column flex-center" @submit.prevent="onEditPost(post._id)">
             <label for="postContent">Modifier la publication</label>
-            <textarea name="postContent" id="postContent" cols="150" rows="10" v-model="post.content"></textarea>
+            <textarea name="postContent" id="postContent" cols="150" rows="10" v-model="editedPost.post.content"></textarea>
+            <input type="file" accept=".png, .jpg, .jpeg" id="file" name="image" @change="upload($event)" ref="fileupload" />
             <input type="submit" class="button" value="Publier">
             <button class="button" @click="post.editing = false">Annuler</button>
           </form>
@@ -58,7 +59,7 @@
         <button
           class="button"
           v-show="this.userAuth.userId == post.userId || this.userAuth.isAdmin"
-          @click="post.editing = true"
+          @click="post.editing = true; this.editedPost.post = post"
         >
           <p>Modifier</p>
           <i class="fa-solid fa-pen-fancy"></i>
@@ -100,7 +101,8 @@
         posts: [],
         userLikes: [],
         userAuth: [],
-        error: ''
+        error: '',
+        editedPost: { post: {} }
       }
     },
     components: {
@@ -108,6 +110,9 @@
       // ModifyPop
     },
     methods: {
+       upload(event) {
+            this.file = event.target.files[0];
+        },
       onLikePost(id, likeValue) {
         const url = `http://localhost:3000/api/posts/${id}/like`;
         const likeObject = {
@@ -164,9 +169,6 @@
           })
           .catch((error) => { console.error('Error ' + error) });
       },
-      // onmodifyPost() {
-      //   this.modifying = true;
-      // },
       updatePosts() {
         fetch('http://localhost:3000/api/posts', {
             method: 'GET',
@@ -200,44 +202,31 @@
         })
         .catch((error) => { console.error('Error ' + error) });
       },
-      onEditPost(post) {
+      onEditPost(id) {
 
+        // if ther's an image, create a formData, else a simple object
+        // if (this.file) {
+          let formData = new FormData();
 
-        console.log(post)
+          formData.append("post", JSON.stringify(this.editedPost.post));
+          formData.append("image", this.file);
 
-        // let editedPost = this.posts.find((el) => {
-        //   return el._id === id;
-        // })._id
-
-        fetch(`http://localhost:3000/api/posts/${editedPost.id}`, {
+          fetch(`http://localhost:3000/api/posts/${id}`, {
             method: 'PUT',
             headers: { 
-              'Accept': 'application/json',
-              'Content-Type': 'application/json',
+              'Accept': 'multipart/form-data',
               'authorization': `Bearer ${this.userAuth.token}`
               },
-            body: JSON.stringify(editedPost)
+            body: formData
         })
         .then((res) => {
             if(res.ok) {
-                return res.json();
+              this.updatePosts();
+              this.editedPost = { post: {} };
+
+              return res.json();
             } else {
-                return Promise.reject(error);
-            }
-        })
-        .then((data) => {
-            
-            data.reverse();
-            this.posts = data.map(post => ({
-              ...post,
-              createdAt: new Date(post.createdAt),
-              editing: false
-            }));
-          
-            for(let post of data) {
-                if(post.usersLiked.includes(this.userAuth.userId)) {
-                    this.userLikes.push(post._id);
-                }
+              return Promise.reject(error);
             }
         })
         .catch((error) => { console.error('Error ' + error) });

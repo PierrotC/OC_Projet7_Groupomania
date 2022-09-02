@@ -39,6 +39,7 @@ exports.newPost = (req, res, next) => {
 };
 
 exports.updatePost = (req, res, next) => {
+
     // définir objet Post contenant le corps de la requête et l'éventuelle image
     const objectPost = req.file ? {
         ...JSON.parse(req.body.post),
@@ -52,7 +53,7 @@ exports.updatePost = (req, res, next) => {
             if(post.userId != req.auth.userId && !req.auth.isAdmin) {
                 res.status(401).json({ message: 'Unauthorized' });
             } else {
-                if(req.file) {
+                if(req.file && post.imageUrl) {
                     const imgName = post.imageUrl.split('/images/')[1];
                     fs.unlink(`images/${ imgName }`, () => {
                         Post.updateOne({ _id: req.params.id }, { ...objectPost, _id: req.params.id})

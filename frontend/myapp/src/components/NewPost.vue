@@ -55,7 +55,7 @@ export default ({
                 // reset data
                 this.newPost.post.content = '';
                 this.file = '';
-                this.$refs.fileupload.value=null;
+                this.$refs.fileupload.value = null;
 
                 return res.json();
             } else {
