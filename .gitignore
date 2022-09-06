@@ -5,3 +5,4 @@
 .DS_Store
 
 frontend/cdn
+node_modules
