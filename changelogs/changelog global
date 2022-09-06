@@ -1,0 +1,6 @@
+### V1.0.0
+- Merged all branches into main with MVP functionnal
+
+### V1.0.1
+- Refactored directories to work with a single package
+- Created README file for instructions on installation
