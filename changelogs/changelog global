@@ -4,3 +4,6 @@
 ### V1.0.1
 - Refactored directories to work with a single package
 - Created README file for instructions on installation
+
+### V1.1.0
+- Populated the README.md with instructions on installion and use of the app
