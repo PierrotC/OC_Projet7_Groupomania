@@ -14,7 +14,7 @@
           <h3 v-show="post.userName">{{ post.userName }} a posté :</h3>
           <p class="creation-date">
             {{
-              `le ${ post.createdAt.getDate() }/${ post.createdAt.getMonth() + 1 }/${ post.createdAt.getFullYear() }
+              `le ${post.createdAt.getDate() }/${ post.createdAt.getMonth() + 1 }/${ post.createdAt.getFullYear() }
                 à ${ post.createdAt.getHours() }h${ post.createdAt.getMinutes() }`
             }}
           </p>
@@ -23,7 +23,7 @@
         <div class="editPost" v-if="post.editing">
           <form class="flex-column flex-center" @submit.prevent="onEditPost(post._id)">
             <label for="postContent">Modifier la publication</label>
-            <textarea name="postContent" id="postContent" cols="150" rows="10" v-model="editedPost.post.content"></textarea>
+            <textarea name="postContent" id="postContent" cols="150" rows="10" v-model="editedPost.content"></textarea>
             <input type="file" accept=".png, .jpg, .jpeg" id="file" name="image" @change="upload($event)" ref="fileupload" />
             <input type="submit" class="button" value="Publier">
             <button class="button" @click="post.editing = false">Annuler</button>
@@ -59,7 +59,7 @@
         <button
           class="button"
           v-show="this.userAuth.userId == post.userId || this.userAuth.isAdmin"
-          @click="post.editing = true; this.editedPost.post = post"
+          @click="post.editing = true; this.editedPost = post"
         >
           <p>Modifier</p>
           <i class="fa-solid fa-pen-fancy"></i>
@@ -102,7 +102,7 @@
         userLikes: [],
         userAuth: [],
         error: '',
-        editedPost: { post: {} }
+        editedPost: {}
       }
     },
     components: {
@@ -195,7 +195,7 @@
             }));
           
             for(let post of data) {
-                if(post.usersLiked.includes(this.userAuth.userId)) {
+                if(post.usersLiked.includes(this.userAuth.userId) && !this.userLikes.includes(post._id)) {
                     this.userLikes.push(post._id);
                 }
             }
@@ -204,12 +204,12 @@
       },
       onEditPost(id) {
 
-        // if ther's an image, create a formData, else a simple object
-        // if (this.file) {
           let formData = new FormData();
 
-          formData.append("post", JSON.stringify(this.editedPost.post));
-          formData.append("image", this.file);
+          formData.append("post", JSON.stringify(this.editedPost));
+          if(this.file) {
+            formData.append("image", this.file);
+          }
 
           fetch(`http://localhost:3000/api/posts/${id}`, {
             method: 'PUT',
@@ -221,8 +221,11 @@
         })
         .then((res) => {
             if(res.ok) {
+
+              // refresh and reset data
               this.updatePosts();
-              this.editedPost = { post: {} };
+              this.editedPost = {};
+              this.file = null;
 
               return res.json();
             } else {

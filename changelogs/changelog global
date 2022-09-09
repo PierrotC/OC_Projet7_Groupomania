@@ -7,3 +7,7 @@
 
 ### V1.1.0
 - Populated the README.md with instructions on installion and use of the app
+
+### V1.1.1
+- Fixed a bug on the like system that added the posts liked by the user multiple times during a session
+- Fixed a bug that didn't change the content of a post on editing
