@@ -7,7 +7,9 @@
 > Le but de cet outil est de faciliter les interactions entre collègues.
 > Le département RH de Groupomania a imaginé plusieurs fonctionnalités pour favoriser les échanges entre collègues.
 
-D'après ce brief, créer une application *from scratch*, de l'intégration HTML/CSS au frontend (avec framework) en passant par le backend et la base de données.
+D'après ce brief, créer une application *from scratch*, de l'intégration HTML/CSS au frontend (avec framework) en passant par le backend, l'API et la base de données.
+
+*Build a social network for internal comunication within the fictional Groupomania company. Start from scratch and cover every aspect, from HTML/CSS integration to the frontend features, including backend, API comunications and database*
 
 ### Stack choisi
 
